@@ -1,0 +1,15 @@
+﻿<#@ template language="C#" #>
+<#@ assembly name="Odo.Core" #>
+<#@ import namespace="Odo.Core" #>
+<#@ parameter name="Data" type="Odo.Html.HtmlRenderData" #>
+
+<script type='text/javascript'>
+	(function($) {
+		<#= Data.SemanticsScript #>
+
+		odo.html.regions = odo.html.regions || {};
+		odo.html.regions["_<#= Data.RenderContext.Region.Name #>"] = semantics;
+
+		odo.html.applyRegionTemplate($('#odoRegion_<#= Data.RenderContext.Region.Name #>'), <#= Data.TemplateScript #>, semantics);
+	})(jQuery);
+</script>

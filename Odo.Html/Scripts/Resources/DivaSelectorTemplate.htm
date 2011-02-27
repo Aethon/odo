@@ -1,0 +1,12 @@
+﻿<table cellspacing="0" cellpadding="0">
+<tr><td><span data-bind="text: numberSelected"></span> selected</td><td></td><td><span data-bind="text: numberAvailable"></span> available</td></tr>
+<tr><td rowspan="2"><ul local-id="selected" style="width: 200px; height: 250px" tabindex="0"></ul></td><td></td><td><input local-id="filterText" type="text" tabindex="0" /></td></tr>
+<tr>
+    <td>
+        <button local-id="select" type="button" style="display: block" data-bind="enable: canSelect, click: selectFocused" data-button="{ icons: { primary: 'ui-icon-triangle-1-w' }, text: false }">Add</button>
+        <button local-id="unselect" type="button" style="display: block" data-bind="enable: canUnselect, click: unselectFocused" data-button="{ icons: { primary: 'ui-icon-triangle-1-e' }, text: false }">Remove</button>
+    </td>
+    <td><ul local-id="available" style="width: 200px; height: 250px" tabindex="0"></ul></td>
+</tr>
+</table>
+<select local-id="parallel-select" style="display:none" />

@@ -1,0 +1,10 @@
+﻿<#@ template language="C#" #>
+<#@ assembly name="Odo.Core" #>
+<#@ import namespace="Odo.Core" #>
+<#@ parameter name="Context" type="Odo.Html.Rendering.HtmlRenderContext" #>
+
+<div id='odoRegion_<#= Context.Region.Name #>' odo-region='<#= Context.Region.Name #>'>
+<!-- TODO: load this content from some strategy -->
+<p>This region requires Javascript to be enabled.</p>
+</div>
+

@@ -1,0 +1,57 @@
+﻿_resources['DivaSelectorTemplate_htm'] = '<table cellspacing="0" cellpadding="0">\n' +
+ '<tr><td><span data-bind="text: numberSelected"></span> selected</td><td></td><td><span data-bind="text: numberAvailable"></span> available</td></tr>\n' +
+ '<tr><td rowspan="2"><ul local-id="selected" style="width: 200px; height: 250px" tabindex="0"></ul></td><td></td><td><input local-id="filterText" type="text" tabindex="0" /></td></tr>\n' +
+ '<tr>\n' +
+ '    <td>\n' +
+ '        <button local-id="select" type="button" style="display: block" data-bind="enable: canSelect, click: selectFocused" data-button="{ icons: { primary: \'ui-icon-triangle-1-w\' }, text: false }">Add</button>\n' +
+ '        <button local-id="unselect" type="button" style="display: block" data-bind="enable: canUnselect, click: unselectFocused" data-button="{ icons: { primary: \'ui-icon-triangle-1-e\' }, text: false }">Remove</button>\n' +
+ '    </td>\n' +
+ '    <td><ul local-id="available" style="width: 200px; height: 250px" tabindex="0"></ul></td>\n' +
+ '</tr>\n' +
+ '</table>\n' +
+'';
+
+_resources['ExpertSelectorTemplate_htm'] = '<div style="-khtml-user-select: none; -moz-user-select: none;">\n' +
+ '<input local-id="expertText" type="text" value="" class="ui-text-box ui-corner-left" /><button local-id="dropButton" type="button">Select</button>\n' +
+ '<div local-id=\'tradePanel\' class="ui-widget-content ui-corner-all" style=\'position: absolute; padding: 3px; z-index: 100\' tabindex="-1">\n' +
+ '<table cellspacing="0" cellpadding="0">\n' +
+ '<tr><td><span data-bind="text: numberSelected"></span> selected</td><td></td><td><span data-bind="text: numberAvailable"></span> available</td></tr>\n' +
+ '<tr><td rowspan="2"><ul local-id="selected" class="initial-focus" style="width: 200px; height: 250px" tabindex="0"></ul></td><td></td><td><div local-id="filterPlace"></div></td></tr>\n' +
+ '<tr>\n' +
+ '    <td>\n' +
+ '        <button local-id="select" type="button" style="display: block" data-bind="enable: canSelect, click: selectFocused" data-button="{ icons: { primary: \'ui-icon-triangle-1-w\' }, text: false }">Add</button>\n' +
+ '        <button local-id="unselect" type="button" style="display: block" data-bind="enable: canUnselect, click: unselectFocused" data-button="{ icons: { primary: \'ui-icon-triangle-1-e\' }, text: false }">Remove</button>\n' +
+ '    </td>\n' +
+ '    <td><ul local-id="available" style="width: 200px; height: 250px" tabindex="0"></ul></td>\n' +
+ '</tr>\n' +
+ '</table>\n' +
+ '</div>\n' +
+ '</div>\n' +
+'';
+
+_resources['FilteredReverseDivaSelectorTemplate_htm'] = '<table cellspacing="0" cellpadding="0">\n' +
+ '<tr><td><span data-bind="text: numberAvailable"></span> available</td><td></td><td><span data-bind="text: numberSelected"></span> selected</td></tr>\n' +
+ '<tr><td><div local-id="filterPlace" style="display:none"><select local-id="filterdrop" data-bind="options: _divaFilter.categories, optionsText: \'Name\', optionsValue: \'Code\'"></select></div></td><td></td><td rowspan="2"><ul local-id="selected" id="selected" tabindex="0"></ul></td></tr>\n' +
+ '<tr>\n' +
+ '    <td><ul local-id="available" id="available" tabindex="0"></ul></td>\n' +
+ '    <td style="vertical-align: top">\n' +
+ '        <button local-id="select" type="button" style="display: block" data-bind="enable: canSelect, click: selectFocused" data-button="{ icons: { primary: \'ui-icon-triangle-1-e\' }, text: false }">Add</button>\n' +
+ '        <button local-id="unselect" type="button" style="display: block" data-bind="enable: canUnselect, click: unselectFocused" data-button="{ icons: { primary: \'ui-icon-triangle-1-w\' }, text: false }">Remove</button>\n' +
+ '    </td>\n' +
+ '</tr>\n' +
+ '</table>\n' +
+'';
+
+_resources['ReverseDivaSelectorTemplate_htm'] = '<table cellspacing="0" cellpadding="0">\n' +
+ '<tr><td><span data-bind="text: numberAvailable"></span> available</td><td></td><td><span data-bind="text: numberSelected"></span> selected</td></tr>\n' +
+ '<tr><td><div local-id="filterPlace" style="display:none"></div></td><td></td><td rowspan="2"><ul local-id="selected" id="selected" tabindex="0"></ul></td></tr>\n' +
+ '<tr>\n' +
+ '    <td><ul local-id="available" id="available" tabindex="0"></ul></td>\n' +
+ '    <td style="vertical-align: top">\n' +
+ '        <button local-id="select" type="button" style="display: block" data-bind="enable: canSelect, click: selectFocused" data-button="{ icons: { primary: \'ui-icon-triangle-1-e\' }, text: false }">Add</button>\n' +
+ '        <button local-id="unselect" type="button" style="display: block" data-bind="enable: canUnselect, click: unselectFocused" data-button="{ icons: { primary: \'ui-icon-triangle-1-w\' }, text: false }">Remove</button>\n' +
+ '    </td>\n' +
+ '</tr>\n' +
+ '</table>\n' +
+'';
+

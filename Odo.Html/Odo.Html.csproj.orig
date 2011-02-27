@@ -1,0 +1,154 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>8.0.30703</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{D50C1694-E631-4F2C-8F50-EB3E5E797AAF}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Odo.Html</RootNamespace>
+    <AssemblyName>Odo.Html</AssemblyName>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="iSynaptic.Commons">
+      <HintPath>..\Dependencies\iSynaptic.Commons\iSynaptic.Commons.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="HtmlRenderer.cs" />
+    <Compile Include="Rendering\FreeTextFilterRenderer.cs" />
+    <Compile Include="Rendering\ExternalRequirementsRenderer.cs" />
+    <Compile Include="Rendering\KoRenderers.cs" />
+    <Compile Include="Rendering\TextRenderer.cs" />
+    <Compile Include="Rendering\PlaceRegionTemplate.cs">
+      <DependentUpon>PlaceRegionTemplate.tt</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="Rendering\HtmlRenderContext.cs" />
+    <Compile Include="Rendering\RenderRegionTemplate.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>RenderRegionTemplate.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Rendering\RenderRegionTemplatePartial.cs" />
+    <Compile Include="Rendering\SelectorRenderer.cs" />
+    <Compile Include="Rendering\SelectorTemplate.cs">
+      <DependentUpon>SelectorTemplate.tt</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="Rendering\KoSerializer.cs" />
+    <Compile Include="Rendering\PortExpressionVisitor.cs" />
+    <Compile Include="Rendering\GroupRenderer.cs" />
+    <Compile Include="Rendering\GroupTemplate.cs">
+      <DependentUpon>GroupTemplate.tt</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="Rendering\SemanticsRenderer.cs" />
+    <Compile Include="WebResources.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Scripts\odo.html.min.js" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Scripts\odo.html.js" />
+    <None Include="Rendering\PlaceRegionTemplate.tt">
+      <Generator>TextTemplatingFilePreprocessor</Generator>
+      <LastGenOutput>PlaceRegionTemplate.cs</LastGenOutput>
+    </None>
+    <None Include="Rendering\RenderRegionTemplate.tt">
+      <Generator>TextTemplatingFilePreprocessor</Generator>
+      <LastGenOutput>RenderRegionTemplate.cs</LastGenOutput>
+    </None>
+    <None Include="Rendering\SelectorTemplate.tt">
+      <Generator>TextTemplatingFilePreprocessor</Generator>
+      <LastGenOutput>SelectorTemplate.cs</LastGenOutput>
+    </None>
+    <None Include="Rendering\GroupTemplate.tt">
+      <Generator>TextTemplatingFilePreprocessor</Generator>
+      <LastGenOutput>GroupTemplate.cs</LastGenOutput>
+    </None>
+    <None Include="Scripts\Build\BuildScripts.ps1" />
+    <None Include="Scripts\Source\Selector.js" />
+    <None Include="Scripts\Source\Utility.js" />
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Scripts\Dependencies\knockout-1.1.1.debug.js" />
+    <EmbeddedResource Include="Scripts\Dependencies\knockout-1.1.1.js" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Odo.Core\Odo.Core.csproj">
+      <Project>{71903C89-C24A-47B1-BBA0-4365F3F731B6}</Project>
+      <Name>Odo.Core</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Scripts\Dependencies\jquery.templates-beta1.debug.js" />
+    <Content Include="Scripts\Resources\FilteredReverseDivaSelectorTemplate.htm" />
+    <Content Include="Scripts\Resources\ExpertSelectorTemplate.htm" />
+    <Content Include="Scripts\Resources\DivaSelectorTemplate.htm" />
+    <Content Include="Scripts\Source\Group.js" />
+    <Content Include="Scripts\Source\jq-layOut.js" />
+    <Content Include="Scripts\Source\Items.js" />
+    <Content Include="Scripts\Source\KoBindings.js" />
+    <Content Include="Scripts\Source\Region.js" />
+    <Content Include="Scripts\Source\ui-dropbutton.js" />
+    <Content Include="Scripts\Source\ui-expert-textbox.js" />
+    <Content Include="Scripts\Source\ui-filterbox.js" />
+    <Content Include="Scripts\Source\ui-listbox.js" />
+    <Content Include="Scripts\Source\ui-popup.js" />
+    <Content Include="Styles\odo.css" />
+    <None Include="Scripts\Build\include.txt" />
+    <Content Include="Scripts\Resources\ReverseDivaSelectorTemplate.htm" />
+    <Content Include="Scripts\Source\FrameState.js" />
+    <Content Include="Scripts\Source\PlatformNormalizations.js" />
+    <Content Include="Scripts\Source\odo-epilog.js" />
+    <Content Include="Scripts\Source\odo-prolog.js" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <PropertyGroup>
+    <PreBuildEvent>powershell $(ProjectDir)Scripts\Build\BuildScripts.ps1</PreBuildEvent>
+  </PropertyGroup>
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

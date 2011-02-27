@@ -1,0 +1,49 @@
+﻿<#@ template language="C#" #>
+<#@ assembly name="Odo.Core" #>
+<#@ import namespace="Odo.Core.Design" #>
+<#@ parameter name="Data" type="Odo.Html.Rendering.SelectorRenderData" #>
+
+function (svm) {
+<# if (Data.CategoryFilter) { #>
+	svm._reportCategories = ko.observableArray((<#= Data.Categories #>)(svm)());
+	svm._reportFields = ko.observableArray((<#= Data.From #>)(svm)());
+	var filter = odo.categorizedItemsView(svm._reportFields, svm._reportCategories, (<#= Data.Category #>)(svm), <#= Data.GetCategoryKey #> , <#= Data.GetItemCategories #>, <#= Data.CompareCategories #>, <#= Data.Comparison #>);
+<# } #>
+	var vm = odo.createSelectorViewModel(
+	<# if (Data.CategoryFilter) { #>filter.items<# }else{ #>(<#= Data.From #>)(svm)<# } #>, (<#= Data.Current #>)(svm), <#= Data.Comparison #>,
+		<#= Data.Selector.Mode == SelectorMode.FilteredUniqueReverseDiva ? "true" : "false" #>);
+	<# if (Data.CategoryFilter) { #>
+		vm._divaFilter = filter;
+		<# } #>
+		<# if (Data.Selector.Mode == SelectorMode.FilteredUniqueReverseDiva) { #>
+			var dom = odo.html.createListComposerDom(vm,
+		<# } else { #>
+			var dom = odo.html.createSelectorDom(vm,
+		<# } #>
+		{ mode: '<#= Data.Selector.Mode.ToString() #>',
+		  compare: <#= Data.Comparison #>
+			<# if (Data.AvailableTemplateScript != null) { #>, availableTemplate: <#= Data.AvailableTemplateScript #><# } #>
+			<# if (Data.SelectedTemplateScript != null)  { #>, selectedTemplate: <#= Data.SelectedTemplateScript #><# } #>
+			<# if (Data.Symbol != null) { #>, symbol: <#= Data.Symbol #> <# } #>
+			<# if (Data.Tip != null) { #>, tip: <#= Data.Tip #> <# } #>
+			<# if (Data.CaptureId != null) { #>, captureId: '<#= Data.CaptureId #>' <# } #>
+			<# if (Data.CaptureKeyScript != null) { #>, captureKey: <#= Data.CaptureKeyScript #> <# } #>
+	} );
+	<# if (Data.CategoryFilter) { #>
+        var _respondToFilter = function () {
+			var code = $("[local-id='filterdrop']", dom).val();
+            $.each(filter.categories(), function () {
+                if (code === this.Code) {
+					var sel = this;
+					setTimeout(function() { (<#= Data.Category #>)(svm)([sel]); }, 10);
+					return false;
+				}
+            });
+        };
+		filter.categories.subscribe(_respondToFilter);
+		$("[local-id='filterdrop']", dom).change(_respondToFilter);
+		$("[local-id='filterPlace']", dom).show();
+		$(function () { _respondToFilter(); });
+		<# } #>
+	return dom;
+}

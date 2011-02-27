@@ -1,0 +1,49 @@
+﻿<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<html>
+	<head>
+		<title>ODO Scratch Tests</title>
+	    <link type="text/css" href="../../odo.html/styles/odo.css" rel="stylesheet" />	
+	    <link type="text/css" href="../../odo.html/scripts/dependencies/jquery-ui-1.8.7.custom.css" rel="stylesheet" />	
+        <script type="text/javascript" src="http://code.jquery.com/jquery-latest.js"></script>
+        <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.8.9/jquery-ui.js"></script>
+        <script type="text/javascript" src="../../odo.Html/scripts/dependencies/knockout-1.1.1.debug.js"></script>
+        <script type="text/javascript" src="../../odo.html/scripts/dependencies/rx.js"></script>
+        <script type="text/javascript" src="../../odo.html/scripts/odo.html.js"></script>
+	</head>
+	<body>
+    <div>
+        This is your first number: <span id="fn"></span>
+    </div>
+    <div>
+        This is your second number: <span id="sn"></span>
+    </div>
+    <div>
+        This is your total number: <span id="tot"></span>
+    </div>
+    <button type="button" id="fb">Add First</button>
+    <button type="button" id="sb">Add Second</button>
+    <ul id="list" tabIndex="0">
+    </ul>
+    <script type="text/javascript">
+      
+        var first = odo.Rx.CreateValueSubject(0);
+        var second = odo.Rx.CreateValueSubject(0).Source(first.Select(function (x) { return x * 10; }));
+        var array = ko.observableArray([]);
+
+        first.Subscribe(new Rx.Observer(function (value) { $("#fn").text(value); }));
+        second.Subscribe(new Rx.Observer(function (value) { $("#sn").text(value); }));
+        first.CombineLatest(second, function (l, r) { return l + r; })
+            .Do(function (x) { array.push(x); })
+            .Subscribe(new Rx.Observer(function (value) { $("#tot").text(value); }));
+        
+        $("#fb").click(function () { first.Value(first.Value() + 1); });
+        $("#sb").click(function () { second.Value(second.Value() + 1); });
+
+        var lb = $("#list").odorx_listbox({ template: function (x) { return "<span>" + x + "</span>"; } }).data("odorx_listbox");
+        lb.Sort.Value(function (l, r) { return l - r; });
+        lb.Source.Source(array.ToObservable());
+        lb.Selected.Value([0]);
+ 
+    </script>
+	</body>
+</html>

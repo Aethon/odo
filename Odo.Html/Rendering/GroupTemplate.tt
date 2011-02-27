@@ -1,0 +1,9 @@
+﻿<#@ template language="C#" #>
+<#@ assembly name="Odo.Core" #>
+<#@ import namespace="System.Linq" #>
+<#@ parameter name="Data" type="Odo.Html.Rendering.GroupRenderData" #>
+
+function (svm) {
+	return odo.html.createGroup(svm, { memberTemplates : [ <#= string.Join(",", Data.Group.Members.Select(m => Data.RenderContext.RenderTemplate(m)).Where(x => !string.IsNullOrWhiteSpace(x))) #> ],
+		style: <#= Data.StyleScript #> });
+}

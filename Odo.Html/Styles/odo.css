@@ -1,0 +1,22 @@
+﻿.ui-list
+{
+	list-style:none;
+	padding: 2px;
+	margin: 0;
+	display:block;
+	background: white;
+	border: 1px solid #CCC;
+}
+        
+.ui-list-item 
+{
+    margin:0;
+	padding: 0;
+	width: 100%;
+	border: 1px solid transparent;
+}
+        
+.ui-text-box
+{
+	border: 1px solid #CCC;
+}
