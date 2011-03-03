@@ -24,12 +24,12 @@ namespace Odo.Core.Rendering
     public class MetadataInfo
     {
         public Type Type { get; private set; }
-        public IMetadataDeclaration Declaration { get; private set; }
+        public IExodataDeclaration Declaration { get; private set; }
         private MethodInfo Method { get;  set; }
         private Expression MemberExpression { get; set; }
 
         public MetadataInfo
-            (Type type, IMetadataDeclaration declaration, MethodInfo method, Expression memberExpression)
+            (Type type, IExodataDeclaration declaration, MethodInfo method, Expression memberExpression)
         {
             Type = type;
             Declaration = declaration;

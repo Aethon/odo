@@ -61,7 +61,7 @@ namespace Odo.Core.Rendering
                 return false;
 
             Type genericDeclaringType = info.DeclaringType.GetGenericTypeDefinition();
-            if (genericDeclaringType != typeof(MetadataDeclaration<>))
+            if (genericDeclaringType != typeof(ExodataDeclaration<>))
                 return false;
 
             if (info.Name != "For")
@@ -89,13 +89,13 @@ namespace Odo.Core.Rendering
             if (expression.Object is ConstantExpression)
             {
                 var constexp = (ConstantExpression) expression.Object;
-                requirementsBuiler.NoteMetadataRequirement(new MetadataInfo(expression.Arguments[0].Type, (IMetadataDeclaration)constexp.Value, expression.Method,
+                requirementsBuiler.NoteMetadataRequirement(new MetadataInfo(expression.Arguments[0].Type, (IExodataDeclaration)constexp.Value, expression.Method,
                     (expression.Arguments.Count == 2) ? expression.Arguments[1] : null));
                 return ExpressionAction.Retain;
             }
 
             // otherwise, attempt to convert the constant expression to a constant
-            var constval = (IMetadataDeclaration)Expression.Lambda(expression.Object).Compile().DynamicInvoke();
+            var constval = (IExodataDeclaration)Expression.Lambda(expression.Object).Compile().DynamicInvoke();
             var objectValue = Expression.Constant(constval);
 
             replacement = Expression.Call(objectValue, expression.Method, expression.Arguments);

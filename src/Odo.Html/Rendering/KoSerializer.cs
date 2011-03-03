@@ -144,8 +144,8 @@ namespace Odo.Html.Rendering
 
         public string RenderInstance(object instance)
         {
-            if (instance is IMetadataDeclaration)
-                return GetMetadataName((IMetadataDeclaration) instance);
+            if (instance is IExodataDeclaration)
+                return GetMetadataName((IExodataDeclaration)instance);
 
             if (instance == null)
                 return "null"; 
@@ -230,7 +230,7 @@ namespace Odo.Html.Rendering
         }
 
         private int _nextMetadataName = 1;
-        private string GetMetadataName(IMetadataDeclaration info)
+        private string GetMetadataName(IExodataDeclaration info)
         {
             string name;
             if (!_metadataNames.TryGetValue(info, out name))
