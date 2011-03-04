@@ -124,6 +124,7 @@
     <Content Include="Scripts\Resources\ExpertSelectorTemplate.htm" />
     <Content Include="Scripts\Resources\DivaSelectorTemplate.htm" />
     <Content Include="Scripts\Resources\FilteredReverseDivaSelectorTemplate.htm" />
+    <Content Include="Scripts\Source\jspf-layout.js" />
     <Content Include="Scripts\Source\odorx-listbox.js" />
     <Content Include="Scripts\Source\Group.js" />
     <Content Include="Scripts\Source\jq-layOut.js" />

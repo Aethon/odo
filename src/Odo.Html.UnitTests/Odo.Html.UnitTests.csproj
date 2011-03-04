@@ -60,6 +60,8 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="QUnit\jspf.htm" />
+    <Content Include="QUnit\jspf-layout-tests.js" />
     <Content Include="QUnit\Scratch.htm" />
     <Content Include="QUnit\SelectorTests.js" />
     <Content Include="QUnit\Main.htm" />
