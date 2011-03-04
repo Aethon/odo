@@ -44,14 +44,25 @@ var jspf = jspf || {};
     // this must be passed to Control._pvt to get the private interface
     var _privateKey = new Object();
 
-    // recursively lays out a top level control
-    jspf.layOutControl = function(control, constraints) {
-        if (!jspf.is(control, "Control"))
-            throw "control is not valid for layout";
-        var c = $.extend($.extend({}, _defaultConstraints), constraints || {});
+    // recursively lays out a top level control within...
+    jspf.layOutControl = function(control, div) {
+        var c, $div, pvt;
 
-        var pvt = control._pvt(_privateKey);
-        pvt.measure(constraints);
+        if (!jspf.is(control, "Control")) {
+            throw "control is not valid for layout";
+        }
+        if (!div || !div instanceof HtmlDivElement) {
+            throw "div is not a div element";
+        }
+        $div = $(div);
+        $div.css('padding', '0px');
+
+        c = $.extend({}, _defaultConstraints);
+        c.maxWidth = $div.innerWidth(); // Potential bug in jQuery here on FF
+        c.maxHeight = $div.innerHeight(); // ditto
+
+        pvt = control._pvt(_privateKey);
+        pvt.measure(c);
         pvt.arrange({ width: control.measuredWidth(), height: control.measuredHeight(), top: 0, left: 0 });
     };
 
@@ -134,6 +145,16 @@ var jspf = jspf || {};
         return _control;
     };
 
+    // creates a jspf DomControl
+    jspf.createDomControl = function(layout) {
+        var _super = jspf.createControl(layout);
+        var _control = jspf.create(_super);
+
+        var pvt = _super._pvt(_privateKey);
+
+        return _control;
+    };
+
     // creates a basic jspf Container (no real value, directly; used by derived types)
     jspf.createContainer = function(layout) {
         var _super = jspf.createControl(layout);
@@ -193,5 +214,5 @@ var jspf = jspf || {};
         return _control;
     };
 
-})(jQuery);
+}(jQuery));
 
