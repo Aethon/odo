@@ -66,4 +66,5 @@ stylecop.*
 Generated_Code #added for RIA/Silverlight projects
 
 #specific to Odo
-[Oo]do.[Hh]tml/[Ss]cripts/odo.*.js
+src/[Oo]do.[Hh]tml/[Ss]cripts/odo.*.js
+src/[Oo]do.[Hh]tml/[Ss]cripts/[Bb]uild/
