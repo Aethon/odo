@@ -67,4 +67,4 @@ Generated_Code #added for RIA/Silverlight projects
 
 #specific to Odo
 src/[Oo]do.[Hh]tml/[Ss]cripts/odo.*.js
-src/[Oo]do.[Hh]tml/[Ss]cripts/[Bb]uild/
+src/[Oo]do.[Hh]tml/[Ss]cripts/[Bb]uild/temp/
