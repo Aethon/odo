@@ -7,6 +7,7 @@ using System.Linq;
 using System.Linq.Expressions;
 using System.Reflection;
 using System.Text;
+using iSynaptic.Commons;
 using Odo.Core;
 
 namespace Odo.Html.Rendering
@@ -23,7 +24,7 @@ namespace Odo.Html.Rendering
 
         public PortExpressionVisitor(KoSerializer serializer, IDictionary<ParameterExpression, string> replacements = null)
         {
-            _serializer = Check.NotNull(serializer);
+            _serializer = Guard.NotNull(serializer, "serialized");
             _replacements = replacements;
         }
 

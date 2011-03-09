@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Linq;
 using System.Linq.Expressions;
+using iSynaptic.Commons;
 using Odo.Core;
 using Odo.Core.Design;
 using Odo.Html;
@@ -13,8 +14,8 @@ namespace Odo.Mvc
 
         internal static string Discuss<TModel, T>(AppAgent agent, TModel model, Expression<Func<TModel, T>> subject, DesignTemplate<T> template, string name = null) where T : class
         {
-            Check.NotNull(agent);
-            Check.NotNull(template);
+            Guard.NotNull(agent, "agent");
+            Guard.NotNull(template, "template");
 
             var semantics = subject.Compile().Invoke(model);
 

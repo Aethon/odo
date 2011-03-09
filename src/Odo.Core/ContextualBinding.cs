@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Linq.Expressions;
+using iSynaptic.Commons;
 
 namespace Odo.Core
 {
@@ -12,7 +13,7 @@ namespace Odo.Core
 
         internal ContextualBinding(Expression<Func<TContext, TResult>> bindingLambda, BindingOptions options = BindingOptions.None) : base(options)
         {
-            _bindingLambda = Check.NotNull(bindingLambda);
+            _bindingLambda = Guard.NotNull(bindingLambda, "bindingLambda");
         }
 
         public override object GetUntypedValue(object context)

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Linq.Expressions;
 using System.Web.Mvc;
+using iSynaptic.Commons;
 using Odo.Core;
 using Odo.Core.Design;
 
@@ -10,7 +11,7 @@ namespace Odo.Mvc
     {
         public static string Discuss<TModel>(this ViewPage<TModel> @this, Func<Designer<TModel>, Designer<TModel>> tree, string name=null) where TModel : class
         {
-            Check.NotNull(tree);
+            Guard.NotNull(tree, "tree");
 
             return Discuss(@this, x => x, DesignTemplate<TModel>.Create(tree), name);
         }
@@ -24,16 +25,16 @@ namespace Odo.Mvc
             where TModel : class
             where T : class
         {
-            Check.NotNull(tree);
+            Guard.NotNull(tree, "tree");
 
             return Discuss(@this, subject, DesignTemplate<T>.Create(tree), name);
         }
 
         public static string Discuss<TModel, T>(this ViewPage<TModel> @this, Expression<Func<TModel,T>> subject, DesignTemplate<T> template, string name=null) where T : class
         {
-            Check.NotNull(@this);
-            Check.NotNull(template);
-            Check.NotNull(subject);
+            Guard.NotNull(@this, "@this");
+            Guard.NotNull(template, "template");
+            Guard.NotNull(subject, "subject");
 
             object agentObj;
             if (!@this.ViewData.TryGetValue(MvcExtensions.AgentViewDataKey, out agentObj))
@@ -46,7 +47,7 @@ namespace Odo.Mvc
 
         public static string RenderAgent(this ViewPage @this)
         {
-            Check.NotNull(@this);
+            Guard.NotNull(@this, "@this");
 
             object agentObj;
             @this.ViewData.TryGetValue(MvcExtensions.AgentViewDataKey, out agentObj);
@@ -55,7 +56,7 @@ namespace Odo.Mvc
 
         public static string RenderAgent(this ViewMasterPage @this)
         {
-            Check.NotNull(@this);
+            Guard.NotNull(@this, "@this");
 
             object agentObj;
             @this.ViewData.TryGetValue(MvcExtensions.AgentViewDataKey, out agentObj);

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Diagnostics.Contracts;
 using System.Linq;
 using System.Text;
+using iSynaptic.Commons;
 using Odo.Core.Semantics;
 
 namespace Odo.Core.Design
@@ -15,7 +16,7 @@ namespace Odo.Core.Design
 
         protected DesignComponent(Binding context, string name, Binding<string> style)
         {
-            Context = Check.NotNull(context);
+            Context = Guard.NotNull(context, "context");
             Style = style;
             Name = name;
         }

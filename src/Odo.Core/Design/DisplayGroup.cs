@@ -3,6 +3,7 @@ using System.Collections.ObjectModel;
 using System.Diagnostics.Contracts;
 using System.Linq;
 using System.Text;
+using iSynaptic.Commons;
 
 namespace Odo.Core.Design
 {
@@ -15,7 +16,7 @@ namespace Odo.Core.Design
             Binding<string> style,
             IEnumerable<DesignComponent> members) : base(context, name, style)
         {
-            Check.NotNull(members);
+            Guard.NotNull(members, "members");
             Members = new ReadOnlyCollection<DesignComponent>(new List<DesignComponent>(members));
         }
  

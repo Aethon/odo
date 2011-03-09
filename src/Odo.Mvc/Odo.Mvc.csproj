@@ -31,6 +31,10 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="iSynaptic.Commons, Version=0.1.0.15, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\Dependencies\iSynaptic.Commons\iSynaptic.Commons.dll</HintPath>
+    </Reference>
     <Reference Include="MvcContrib">
       <HintPath>..\Dependencies\MvcContrib\MvcContrib.dll</HintPath>
     </Reference>

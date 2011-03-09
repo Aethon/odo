@@ -4,6 +4,7 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Text;
+using iSynaptic.Commons;
 
 namespace Odo.Core.Design
 {
@@ -16,7 +17,7 @@ namespace Odo.Core.Design
             IEnumerable<Expression> links)
             : base(context, null, null)
         {
-            Check.NotNull(links);
+            Guard.NotNull(links, "links");
             Links = new ReadOnlyCollection<Expression>(new List<Expression>(links));
         }
 

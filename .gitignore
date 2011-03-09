@@ -4,6 +4,7 @@
 # User-specific files
 *.suo
 *.user
+*.vs10x
 
 # Build results
 [Dd]ebug/

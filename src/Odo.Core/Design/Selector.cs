@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq.Expressions;
 using System.Text;
+using iSynaptic.Commons;
 using Odo.Core.Semantics;
 
 namespace Odo.Core.Design
@@ -90,7 +91,7 @@ namespace Odo.Core.Design
             DesignComponent filter)
             : base(context, name, style, mode, filter)
         {
-            base.AvailableTemplate = Check.NotNull(availableTemplate);
+            base.AvailableTemplate = Guard.NotNull(availableTemplate, "availableTemplate");
             base.SelectedTemplate = selectedTemplate;
             base.ComparisonExpression = comparison;
             base.AllItems = context.Compose(s => s.From.GetValue(s)).BindingLambda;

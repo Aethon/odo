@@ -45,7 +45,6 @@
     </Compile>
     <Compile Include="AppRegion.cs" />
     <Compile Include="Binding.cs" />
-    <Compile Include="Check.cs" />
     <Compile Include="ContextualBinding.cs" />
     <Compile Include="Design\CategoryFilter.cs" />
     <Compile Include="Design\CategoryFilterExtensions.cs" />
@@ -77,7 +76,9 @@
     <Compile Include="Rendering\RegionAnalysisStrategy.cs" />
     <Compile Include="Rendering\MemberInfoExtensions.cs" />
     <Compile Include="Rendering\RegionAnalyzer.cs" />
+    <Compile Include="Semantics\IAcceptConstraint.cs" />
     <Compile Include="Semantics\CaptureToForm.cs" />
+    <Compile Include="Semantics\IAccept.cs" />
     <Compile Include="Semantics\ProjectBuilder.cs" />
     <Compile Include="Semantics\ProjectExtensions.cs" />
     <Compile Include="Semantics\Select.cs" />

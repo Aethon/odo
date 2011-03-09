@@ -9,6 +9,7 @@ using System.Linq.Expressions;
 using System.Reflection;
 using System.Text;
 using System.Text.RegularExpressions;
+using iSynaptic.Commons;
 using iSynaptic.Commons.Data;
 using Odo.Core.Design;
 using Odo.Core.Semantics;
@@ -169,7 +170,7 @@ namespace Odo.Core.Rendering
 
         public RegionAnalyzer(IRegionAnalysisStrategy strategy)
         {
-            _strategy = Check.NotNull(strategy);
+            _strategy = Guard.NotNull(strategy, "strategy");
         }
 
         public IEnumerable<RenderNode> Analyze(AppRegion region)
@@ -179,8 +180,8 @@ namespace Odo.Core.Rendering
 
         public IEnumerable<RenderNode> Analyze(IEnumerable<object> externalLinks, object semantics)
         {
-            Check.NotNull(externalLinks);
-            Check.NotNull(semantics);
+            Guard.NotNull(externalLinks, "externalLinks");
+            Guard.NotNull(semantics, "semantics");
 
             // prime with the "external" links and the semantics)
             foreach (var l in externalLinks)
