@@ -1,8 +1,6 @@
 ﻿using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 
-namespace Odo.Core.Semantics
+namespace Odo.Core.Conversation
 {
     public interface IAcceptConstraint<in T>
     {

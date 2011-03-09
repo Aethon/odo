@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq.Expressions;
 
-namespace Odo.Core.Semantics
+namespace Odo.Core.Conversation
 {
     public class ProjectBuilder<TSView, TSource, TData, T>
     {

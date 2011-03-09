@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Linq;
 using System.Linq.Expressions;
-using Odo.Core.Semantics;
+using Odo.Core.Conversation;
 
 namespace Odo.Core.Design
 {

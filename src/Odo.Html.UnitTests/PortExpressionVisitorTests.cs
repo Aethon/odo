@@ -5,7 +5,6 @@ using Microsoft.JScript.Vsa;
 using NUnit.Framework;
 using Odo.Core;
 using Odo.Core.Design;
-using Odo.Core.Semantics;
 using Odo.Html.Rendering;
 
 namespace Odo.Html.UnitTests

@@ -7,7 +7,6 @@ using System.Text;
 using NUnit.Framework;
 using Odo.Core;
 using Odo.Core.Rendering;
-using Odo.Core.Semantics;
 
 namespace Odo.UnitTests
 {

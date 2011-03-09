@@ -12,7 +12,6 @@ using System.Text.RegularExpressions;
 using iSynaptic.Commons;
 using iSynaptic.Commons.Data;
 using Odo.Core.Design;
-using Odo.Core.Semantics;
 
 namespace Odo.Core.Rendering
 {

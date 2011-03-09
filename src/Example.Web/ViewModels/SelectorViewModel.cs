@@ -1,5 +1,5 @@
 ﻿using Example.Business;
-using Odo.Core.Semantics;
+using Odo.Core.Conversation;
 
 namespace Example.Web.ViewModels
 {

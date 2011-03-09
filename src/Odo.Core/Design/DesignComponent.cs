@@ -4,7 +4,6 @@ using System.Diagnostics.Contracts;
 using System.Linq;
 using System.Text;
 using iSynaptic.Commons;
-using Odo.Core.Semantics;
 
 namespace Odo.Core.Design
 {

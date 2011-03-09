@@ -4,7 +4,6 @@ using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
 using Odo.Core.Design;
-using Odo.Core.Semantics;
 using System.Diagnostics.Contracts;
 
 namespace Odo.Core

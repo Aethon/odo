@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq.Expressions;
 
-namespace Odo.Core.Semantics
+namespace Odo.Core.Conversation
 {
     public static class SelectExtensions
     {

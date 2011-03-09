@@ -7,7 +7,6 @@ using System.Linq.Expressions;
 using System.Text;
 using NUnit.Framework;
 using Odo.Core.Rendering;
-using Odo.Core.Semantics;
 using Odo.Html.Rendering;
 
 namespace Odo.Html.UnitTests

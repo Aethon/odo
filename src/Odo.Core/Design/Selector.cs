@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.Linq.Expressions;
 using System.Text;
 using iSynaptic.Commons;
-using Odo.Core.Semantics;
+using Odo.Core.Conversation;
 
 namespace Odo.Core.Design
 {

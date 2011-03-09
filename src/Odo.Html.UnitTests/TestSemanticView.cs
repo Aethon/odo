@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using Odo.Core.Semantics;
+using Odo.Core.Conversation;
 
 namespace Odo.Html.UnitTests
 {

@@ -5,8 +5,8 @@ using System.Linq;
 using System.Runtime.Remoting.Messaging;
 using System.Text;
 using Odo.Core;
+using Odo.Core.Conversation;
 using Odo.Core.Design;
-using Odo.Core.Semantics;
 
 namespace Odo.Html.Rendering
 {

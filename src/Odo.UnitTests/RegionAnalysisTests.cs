@@ -6,9 +6,9 @@ using System.Reflection;
 using System.Text;
 using NUnit.Framework;
 using Odo.Core;
+using Odo.Core.Conversation;
 using Odo.Core.Design;
 using Odo.Core.Rendering;
-using Odo.Core.Semantics;
 
 namespace Odo.UnitTests
 {

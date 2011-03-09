@@ -46,6 +46,16 @@
     <Compile Include="AppRegion.cs" />
     <Compile Include="Binding.cs" />
     <Compile Include="ContextualBinding.cs" />
+    <Compile Include="Conversation\CaptureToForm.cs" />
+    <Compile Include="Conversation\IAccept.cs" />
+    <Compile Include="Conversation\IAcceptConstraint.cs" />
+    <Compile Include="Conversation\Project.cs" />
+    <Compile Include="Conversation\ProjectBuilder.cs" />
+    <Compile Include="Conversation\ProjectExtensions.cs" />
+    <Compile Include="Conversation\Select.cs" />
+    <Compile Include="Conversation\SelectExtensions.cs" />
+    <Compile Include="Conversation\Semantic.cs" />
+    <Compile Include="Conversation\SemanticGroup.cs" />
     <Compile Include="Design\CategoryFilter.cs" />
     <Compile Include="Design\CategoryFilterExtensions.cs" />
     <Compile Include="Design\DesignComponentBuilder.cs" />
@@ -76,16 +86,6 @@
     <Compile Include="Rendering\RegionAnalysisStrategy.cs" />
     <Compile Include="Rendering\MemberInfoExtensions.cs" />
     <Compile Include="Rendering\RegionAnalyzer.cs" />
-    <Compile Include="Semantics\IAcceptConstraint.cs" />
-    <Compile Include="Semantics\CaptureToForm.cs" />
-    <Compile Include="Semantics\IAccept.cs" />
-    <Compile Include="Semantics\ProjectBuilder.cs" />
-    <Compile Include="Semantics\ProjectExtensions.cs" />
-    <Compile Include="Semantics\Select.cs" />
-    <Compile Include="Semantics\Project.cs" />
-    <Compile Include="Semantics\SelectExtensions.cs" />
-    <Compile Include="Semantics\Semantic.cs" />
-    <Compile Include="Semantics\SemanticGroup.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ValueSubject.cs" />
   </ItemGroup>
