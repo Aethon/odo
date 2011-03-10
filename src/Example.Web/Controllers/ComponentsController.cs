@@ -19,6 +19,11 @@ namespace Example.Web.Controllers
             return View();
         }
 
+        public ActionResult RegionWithDomControl()
+        {
+            return View();
+        }
+
         public ActionResult VirtualizingStackPanel()
         {
             return View();

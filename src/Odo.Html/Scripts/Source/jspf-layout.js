@@ -65,8 +65,23 @@ var jspf = jspf || {};
 
         // private layout methods
         this._measure = function(constraints) {
-            this._measuredWidth = this._measureAxis(this.minWidth, this.maxWidth, this.width, this.horizontalAlignment === 'stretch', this.margin.left + this.margin.right, constraints.maxWidth);
-            this._measuredHeight = this._measureAxis(this.minHeight, this.maxHeight, this.height, this.verticalAlignment === 'stretch', this.margin.top + this.margin.bottom, constraints.maxHeight);
+            // normalize all inputs
+            this.width = this.width || 0;
+            this.minWidth = this.minWidth || 0;
+            if (!this.maxWidth || this.maxWidth < 0) {
+                this.maxWidth  = Number.MAX_INTEGER;
+            }
+            this.horizontalAlignment = this.horizontalAlignment || 'stretch';
+            this.height = this.height || 0;
+            this.minHeight = this.minHeight || 0;
+            if (!this.maxHeight || this.maxHeight < 0) {
+                this.maxHeight  = Number.MAX_INTEGER;
+            }
+            this.verticalAlignment = this.verticalAlignment || 'stretch';
+
+            // default measurement
+            this._measuredWidth = Math.min(this.maxWidth, Math.max(this.minWidth, this.width));
+            this._measuredHeight = Math.min(this.maxHeight, Math.max(this.minHeight, this.height));
         };
 
         this._arrange = function(top, left, width, height) {
@@ -76,41 +91,15 @@ var jspf = jspf || {};
             this._arrangedHeight = height;
         };
 
-        this._measureAxis = function(min, max, target, stretch, totalMargin, available) {
-            var result;
-
-            if (!max || max < 0) {
-                max = Number.MAX_INTEGER;
-            }
-            if (!min || min < 0) {
-                min = 0;
-            }
-
-            if (stretch) {
-                result = Math.min(available, max);
-            } else {
-                result = Math.min(available, target);
-            }
-
-            return Math.max(min, result - totalMargin);
-        };
-
-        this._arrangeAxis = function(min, max, target, align, lowMargin, highMargin, available) {
+        this._arrangeAxis = function(min, max, measured, align, lowMargin, highMargin, available) {
             var length = 0;
             var pos = 0;
             var totalNeeded = 0;
 
-            if (!max || max < 0) {
-                max = Number.MAX_INTEGER;
-            }
-            if (!min || min < 0) {
-                min = 0;
-            }
-
             if (align === 'stretch') {
                 length = Math.min(available, max);
             } else {
-                length = Math.min(available, target);
+                length = Math.min(available, measured);
             }
 
             length = Math.max(min, length - lowMargin - highMargin);
@@ -166,7 +155,7 @@ var jspf = jspf || {};
                 throw "host is not a div element";
             }
             $div = $(this.host);
-            $div.css('padding', '0px');
+            $div.css({ padding : '0px' });
 
             c = $.extend({}, _defaultConstraints);
             c.maxWidth = $div.innerWidth();
@@ -174,9 +163,9 @@ var jspf = jspf || {};
 
             if (root && jspf.is(root, "Control")) {
                 root._measure(c);
-                var xaxis = this._arrangeAxis(root.minWidth, root.maxWidth, root._measuredWidth, root._horizontalAlignment, root.margin.left, root.margin.right, c.maxWidth);
-                var yaxis = this._arrangeAxis(root.minHeight, root.maxHeight, root._measuredHeight, root._verticalAlignment, root.margin.top, root.margin.bottom, c.maxHeight);
-                this.root._arrange(xaxis.pos, yaxis.pos, xaxis.length, yaxis.length);
+                var xaxis = this._arrangeAxis(root.minWidth, root.maxWidth, root._measuredWidth, root.horizontalAlignment, root.margin.left, root.margin.right, c.maxWidth);
+                var yaxis = this._arrangeAxis(root.minHeight, root.maxHeight, root._measuredHeight, root.verticalAlignment, root.margin.top, root.margin.bottom, c.maxHeight);
+                this.root._arrange(yaxis.pos, xaxis.pos, xaxis.length, yaxis.length);
             }
         };
 
@@ -202,9 +191,9 @@ var jspf = jspf || {};
         control._arrange = function(top, left, width, height) {
             _super._arrange.call(this, top, left, width, height);
 
-            if (dom) {
-                var $dom = $(dom);
-                $dom.css({ position: 'absolute', left: left, top: top, width: width.toString() + 'px', height: height.toString() + 'px' });
+            if (this.dom) {
+                var $dom = $(this.dom);
+                $dom.css({ position: 'absolute', left: left.toString() + 'px', top: top.toString() + 'px', width: width.toString() + 'px', height: height.toString() + 'px' });
             }
         };
 

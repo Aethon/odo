@@ -1,19 +1,5 @@
 ﻿$(function () {
 
-    /*
-    function checkControlLayout(control, layout) {
-    if (layout.width) {
-    ok(control.width === layout.width, "should have width set to " + layout.width);
-    } else {
-    ok(control.width === -1, "should have width set to -1 (default)");
-    }
-    if (layout.height) {
-    ok(control.height === layout.height, "should have width set to " + layout.height);
-    } else {
-    ok(control.height === -1, "should have height set to -1 (default)");
-    }
-    }; */
-
     function checkControlProperties(control, expected) {
         var expectedPropValue;
         for (prop in expected) {
@@ -63,6 +49,7 @@
         ok(c.parent() === null, "should be null");
     });
 
+
     //------------------------------------------------------------------------
     module("jspf-layout Region.layOutControl tests");
     //------------------------------------------------------------------------
@@ -111,7 +98,7 @@
 
         r.layOut();
 
-        checkControlProperties(c, { _measuredWidth: 20, _arrangedWidth: 20 });
+        checkControlProperties(c, { _measuredWidth: 30, _arrangedWidth: 20 });
     });
 
     test("Region.layOut does not clip minWidth", function () {
@@ -125,7 +112,7 @@
 
         r.layOut();
 
-        checkControlProperties(c, { _measuredWidth: 25,  _arrangedWidth: 25 });
+        checkControlProperties(c, { _measuredWidth: 30,  _arrangedWidth: 25 });
     });
 
     test("Region.layOut stretches width", function () {
@@ -139,7 +126,7 @@
 
         r.layOut();
 
-        checkControlProperties(c, { _measuredWidth: 20, _arrangedWidth: 20 });
+        checkControlProperties(c, { _measuredWidth: 10, _arrangedWidth: 20 });
     });
 
     test("Region.layOut stretches width, respects maxWidth", function () {
@@ -153,7 +140,7 @@
 
         r.layOut();
 
-        checkControlProperties(c, { _measuredWidth: 15, _arrangedWidth: 15 });
+        checkControlProperties(c, { _measuredWidth: 10, _arrangedWidth: 15 });
     });
 
     test("Region.layOut clips height", function () {
@@ -167,7 +154,7 @@
 
         r.layOut();
 
-        checkControlProperties(c, { _measuredHeight: 20, _arrangedHeight: 20 });
+        checkControlProperties(c, { _measuredHeight: 30, _arrangedHeight: 20 });
     });
 
     test("Region.layOut does not clip minHeight", function () {
@@ -181,7 +168,7 @@
 
         r.layOut();
 
-        checkControlProperties(c, { _measuredHeight: 25, _arrangedHeight: 25 });
+        checkControlProperties(c, { _measuredHeight: 30, _arrangedHeight: 25 });
     });
 
     test("Region.layOut stretches height", function () {
@@ -195,7 +182,7 @@
 
         r.layOut();
 
-        checkControlProperties(c, { _measuredHeight: 20, _arrangedHeight: 20 });
+        checkControlProperties(c, { _measuredHeight: 10, _arrangedHeight: 20 });
     });
 
     test("Region.layOut stretches width, respects maxHeight", function () {
@@ -209,7 +196,7 @@
 
         r.layOut();
 
-        checkControlProperties(c, { _measuredHeight: 15, _arrangedHeight: 15 });
+        checkControlProperties(c, { _measuredHeight: 10, _arrangedHeight: 15 });
     });
 
     /*

@@ -8,6 +8,7 @@
 
     <h2>Components</h2>
     <ul id="menu">              
+        <li><%: Html.ActionLink("Region with a DomControl", "RegionWithDomControl", "Components")%></li>
         <li><%: Html.ActionLink("Virtualizing Stack Panel", "VirtualizingStackPanel", "Components")%></li>
         <li><%: Html.ActionLink("Selector", "Selector", "Components")%></li>
     </ul>
