@@ -5,27 +5,10 @@ var jspf = jspf || {};
 
 (function($) {
 
-    var defaultLayout = {
-        width: -1,
-        height: -1 //,
-        //margin: [ 0, 0, 0, 0 ],
-        //padding: [ 0, 0, 0, 0],
-        //halign: 'left' | 'right' | 'center' | 'stretch',
-        //valign: 'top' | 'bottom' | 'middle' | 'stretch'
-    };
+    if (!Number.MAX_INTEGER) {
+        Number.MAX_INTEGER = Math.pow(2, 31) - 1;
+    }
 
-    var defaultMeasurement = {
-        width: 0,
-        height: 0
-    };
-
-    var defaultArrangement = {
-        width: 0,
-        height: 0,
-        top: 0,
-        left: 0
-    };
-    
     var _defaultConstraints = {
         maxWidth: -1,
         maxHeight: -1
@@ -38,32 +21,123 @@ var jspf = jspf || {};
         return new F();
     };
 
-    var Control = function() {};
-    var PrivateControlInterface = function() {};
+    var Control = function(init) {
+        // heirarchy
+        this._parent = null;
 
-    // this must be passed to Control._pvt to get the private interface
-    var _privateKey = new Object();
+        // layout
+        this.width = 0;
+        this.minWidth = -1;
+        this.maxWidth = -1;
+        this.horizontalAlignment = 'stretch';
+        this.height = 0;
+        this.minHeight = -1;
+        this.maxHeight = -1;
+        this.verticalAlignment = 'stretch';
+        this.margin = { top: 0, left: 0, bottom: 0, right: 0 };
+        this._measuredWidth = 0;
+        this._measuredHeight = 0;
+        this._arrangedWidth = 0;
+        this._arrangedHeight = 0;
+        this._top = 0;
+        this._left = 0;
 
-    // recursively lays out a top level control within...
-    jspf.layOutControl = function(control, div) {
-        var c, $div, pvt;
+        // public methods
+        this.is = function(typename) {
+            return typename === "Control";
+        };
 
-        if (!jspf.is(control, "Control")) {
-            throw "control is not valid for layout";
-        }
-        if (!div || !div instanceof HtmlDivElement) {
-            throw "div is not a div element";
-        }
-        $div = $(div);
-        $div.css('padding', '0px');
+        this.parent = function() {
+            return this._parent;
+        };
 
-        c = $.extend({}, _defaultConstraints);
-        c.maxWidth = $div.innerWidth(); // Potential bug in jQuery here on FF
-        c.maxHeight = $div.innerHeight(); // ditto
+        this.setProperties = function(layout) {
+            var type;
+            for (var x in layout) {
+                if (x.charAt(0) !== '_') {
+                    type = typeof this[x];
+                    if (type !== 'undefined' && type !== 'function') {
+                        this[x] = layout[x];
+                    }
+                }
+            }
+        };
 
-        pvt = control._pvt(_privateKey);
-        pvt.measure(c);
-        pvt.arrange({ width: control.measuredWidth(), height: control.measuredHeight(), top: 0, left: 0 });
+        // private layout methods
+        this._measure = function(constraints) {
+            this._measuredWidth = this._measureAxis(this.minWidth, this.maxWidth, this.width, this.horizontalAlignment === 'stretch', this.margin.left + this.margin.right, constraints.maxWidth);
+            this._measuredHeight = this._measureAxis(this.minHeight, this.maxHeight, this.height, this.verticalAlignment === 'stretch', this.margin.top + this.margin.bottom, constraints.maxHeight);
+        };
+
+        this._arrange = function(top, left, width, height) {
+            this._top = top;
+            this._left = left;
+            this._arrangedWidth = width;
+            this._arrangedHeight = height;
+        };
+
+        this._measureAxis = function(min, max, target, stretch, totalMargin, available) {
+            var result;
+
+            if (!max || max < 0) {
+                max = Number.MAX_INTEGER;
+            }
+            if (!min || min < 0) {
+                min = 0;
+            }
+
+            if (stretch) {
+                result = Math.min(available, max);
+            } else {
+                result = Math.min(available, target);
+            }
+
+            return Math.max(min, result - totalMargin);
+        };
+
+        this._arrangeAxis = function(min, max, target, align, lowMargin, highMargin, available) {
+            var length = 0;
+            var pos = 0;
+            var totalNeeded = 0;
+
+            if (!max || max < 0) {
+                max = Number.MAX_INTEGER;
+            }
+            if (!min || min < 0) {
+                min = 0;
+            }
+
+            if (align === 'stretch') {
+                length = Math.min(available, max);
+            } else {
+                length = Math.min(available, target);
+            }
+
+            length = Math.max(min, length - lowMargin - highMargin);
+
+            switch (align) {
+                case 'left':
+                case 'top':
+                default:
+                    pos = lowMargin;
+                    break;
+                case 'right':
+                case 'bottom':
+                    pos = available - highMargin - length;
+                    break;
+                case 'center':
+                case 'stretch':
+                    totalNeeded = highMargin + lowMargin + length;
+                    if (totalNeeded !== available) {
+                        pos = Math.floor((available - totalNeeded) / 2);
+                    }
+                    break;
+            }
+
+            return { pos: pos, length: length };
+        };
+
+        this.setProperties(init);
     };
 
     // determines if [object] is a jspf Control of [typename] type
@@ -72,89 +146,72 @@ var jspf = jspf || {};
     };
 
     // creates a basic jspf Control (no real value, directly; used by derived types)
-    jspf.createControl = function(layout) {
-        var _control = jspf.create(new Control());
-    
-        var _layout = $.extend($.extend({}, defaultLayout), layout || {});
-        var _measurement = $.extend({}, defaultMeasurement);
-        var _arrangement = $.extend({}, defaultArrangement);
+    jspf.createControl = function(init) {
+        return jspf.create(new Control(init));
+    };
 
-        var _parent = null;
-        var _pvt = jspf.create(new PrivateControlInterface());
+    // creates a jspf Region
+    jspf.createRegion = function(init) {
+        var _super = jspf.createControl(init);
+        var control = jspf.create(_super);
 
-        _pvt.setParent = function(parent) {
-            _parent = parent;
-        }
+        control.root = null;
+        control.host = null;
 
-        _pvt.measure = function(constraints) {
-            _measurement.width = _layout.width;
-            _measurement.height = _layout.height;
-        };
+        // recursively lays out the region
+        control.layOut = function() {
+            var c, $div, pvt, root = this.root;
 
-        _pvt.arrange = function(arrangement) {
-            _arrangement = arrangement;
-        };
-
-        _control.is = function(typename) {
-            return typename === "Control";
-        }
-
-        _control.width = function(width) {
-            if (arguments.length == 0) {
-                return _layout.width;
+            if (!this.host || !this.host instanceof HTMLDivElement) {
+                throw "host is not a div element";
             }
-            _layout.width = width;
-            return _control;
-        };
+            $div = $(this.host);
+            $div.css('padding', '0px');
 
-        _control.height = function(height) {
-            if (arguments.length == 0) {
-                return _layout.height;
+            c = $.extend({}, _defaultConstraints);
+            c.maxWidth = $div.innerWidth();
+            c.maxHeight = $div.innerHeight();
+
+            if (root && jspf.is(root, "Control")) {
+                root._measure(c);
+                var xaxis = this._arrangeAxis(root.minWidth, root.maxWidth, root._measuredWidth, root._horizontalAlignment, root.margin.left, root.margin.right, c.maxWidth);
+                var yaxis = this._arrangeAxis(root.minHeight, root.maxHeight, root._measuredHeight, root._verticalAlignment, root.margin.top, root.margin.bottom, c.maxHeight);
+                this.root._arrange(xaxis.pos, yaxis.pos, xaxis.length, yaxis.length);
             }
-            _layout.height = height;
-            return _control;
         };
 
-        _control.measuredWidth = function() {
-            return _measurement.width;
+        control._measure = function() {
+            // do nothing; this control does not measure itself, instead it uses the host's dimensions
+
+        };
+        
+        control._arrange = function() {
+            // do nothing; this control has no physical representation.
         };
 
-        _control.measuredHeight = function() {
-            return _measurement.height;
-        };
-
-        _control.arrangedWidth = function() {
-            return _arrangement.width;
-        };
-
-        _control.arrangedHeight = function() {
-            return _arrangement.height;
-        };
-
-        _control.parent = function() {
-            return _parent;
-        };
-
-        _control._pvt = function(pk) {
-            if (!pk || pk !== _privateKey) {
-                throw "must include the private key to acquire the private interface"; 
-            }
-            return _pvt;    
-        };
-
-        return _control;
+        return control;
     };
 
     // creates a jspf DomControl
     jspf.createDomControl = function(layout) {
         var _super = jspf.createControl(layout);
-        var _control = jspf.create(_super);
+        var control = jspf.create(_super);
 
-        var pvt = _super._pvt(_privateKey);
+        control.dom = null;
 
-        return _control;
+        control._arrange = function(top, left, width, height) {
+            _super._arrange.call(this, top, left, width, height);
+
+            if (dom) {
+                var $dom = $(dom);
+                $dom.css({ position: 'absolute', left: left, top: top, width: width.toString() + 'px', height: height.toString() + 'px' });
+            }
+        };
+
+        return control;
     };
 
+    /*
     // creates a basic jspf Container (no real value, directly; used by derived types)
     jspf.createContainer = function(layout) {
         var _super = jspf.createControl(layout);
@@ -213,6 +270,5 @@ var jspf = jspf || {};
 
         return _control;
     };
-
+    */
 }(jQuery));
-
