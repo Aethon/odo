@@ -1,0 +1,80 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Script.jQuery.History</name>
+    </assembly>
+    <members>
+        <member name="T:jQueryApi.History.StateMergeMode">
+            <summary>
+            Specifies how new state is merged into the current state.
+            </summary>
+        </member>
+        <member name="F:jQueryApi.History.StateMergeMode.Merge">
+            <summary>
+            Merge new values from the specified state, and override any current
+            state values.
+            </summary>
+        </member>
+        <member name="F:jQueryApi.History.StateMergeMode.MergeKeepCurrent">
+            <summary>
+            Merge new values from the specified state, but keep current state values
+            </summary>
+        </member>
+        <member name="F:jQueryApi.History.StateMergeMode.ReplaceCurrentState">
+            <summary>
+            Replace the current state with the specified state.
+            </summary>
+        </member>
+        <member name="T:jQueryApi.History.jQueryHistory">
+            <summary>
+            Provides access to jQuery history and back button management APIs.
+            </summary>
+        </member>
+        <member name="M:jQueryApi.History.jQueryHistory.GetState">
+            <summary>
+            Retrieves the current state from the browser.
+            </summary>
+            <returns>An object that contains the current state.</returns>
+        </member>
+        <member name="M:jQueryApi.History.jQueryHistory.GetState(System.String)">
+            <summary>
+            Retrieves the current state for the specified key from the browser.
+            </summary>
+            <param name="key">The state key to lookup.</param>
+            <returns>The state value for the specified key.</returns>
+        </member>
+        <member name="M:jQueryApi.History.jQueryHistory.GetState(System.String,System.Boolean)">
+            <summary>
+            Retrieves the current state for the specified key from the browser.
+            </summary>
+            <param name="key">The state key to lookup.</param>
+            <param name="coerce">true if numeric, boolean, undefined values should be coerced from their string representation.</param>
+            <returns>The state value for the specified key.</returns>
+        </member>
+        <member name="M:jQueryApi.History.jQueryHistory.PushState(System.Collections.Dictionary)">
+            <summary>
+            Adds state to the browser.
+            </summary>
+            <param name="state">The object containing state key/value pairs to be merged.</param>
+        </member>
+        <member name="M:jQueryApi.History.jQueryHistory.PushState(System.Collections.Dictionary,jQueryApi.History.StateMergeMode)">
+            <summary>
+            Adds state to the browser.
+            </summary>
+            <param name="state">The object containing state key/value pairs to be merged.</param>
+            <param name="mergeMode">Specifies how the new state should be merged into the current state.</param>
+        </member>
+        <member name="M:jQueryApi.History.jQueryHistory.RemoveState">
+            <summary>
+            Clears all the state from the browser.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:jQueryApi.History.jQueryHistory.RemoveState(System.String[])">
+            <summary>
+            Removes the specified key(s) from the current state in the browser.
+            </summary>
+            <param name="key">The keys to be removed.</param>
+        </member>
+    </members>
+</doc>

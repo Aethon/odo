@@ -17,4 +17,3 @@
 ../source/group.js
 ../source/selector.js
 ../source/odo-epilog.js
-../source/jspf-layout.js

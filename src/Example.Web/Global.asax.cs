@@ -5,6 +5,7 @@ using System.Web;
 using System.Web.Mvc;
 using System.Web.Routing;
 using Odo.Core;
+using odo.Html;
 using Odo.Mvc;
 
 namespace Example.Web
@@ -31,6 +32,8 @@ namespace Example.Web
             AreaRegistration.RegisterAllAreas();
 
             RegisterRoutes(RouteTable.Routes);
+
+            odo.Html.PageExtensions.ExtractResources(Server.MapPath("~/scripts/odo"));
         }
 
         protected void Application_BeginRequest()

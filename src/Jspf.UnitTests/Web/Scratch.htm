@@ -1,0 +1,28 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html>
+<head>
+  <title>Jspf - Layout Tests</title>
+  <link rel="stylesheet" href="../../lib/QUnit/QUnit.css" type="text/css"/>
+  <script type="text/javascript" src="../../Jspf/bin/debug/mscorlib.js"></script>
+  <script type="text/javascript" src="../../lib/jQuery/jquery.js"></script>
+  <script type="text/javascript" src="../../Jspf/bin/debug/Jspf.debug.js"></script>
+  <script type="text/javascript" src="../../Jspf/fixes.js"></script>
+</head>
+<body>
+    <div>
+    <div id="RegionHost" style="width:200px; height: 300px; position:relative"></div>
+    </div>
+
+      <script type="text/javascript">
+        (function () {
+            var $host = $("#RegionHost");
+            var r = new Jspf.Region();
+            r.host = $host[0];
+            var list = new Jspf.ListBox();
+            r.set_child(list);
+            r.layOut();
+        } ());
+      </script>
+</body>
+</html>
+ 

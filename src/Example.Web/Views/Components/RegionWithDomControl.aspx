@@ -10,23 +10,23 @@
 
     <label for="halign">Horizontal alignment</label>
     <select id="halign">
-        <option value="left">left</option>
-        <option value="center">center</option>
-        <option value="right">right</option>
-        <option value="stretch">stretch</option>
+        <option value="-1">left</option>
+        <option value="2">center</option>
+        <option value="1">right</option>
+        <option value="0">stretch</option>
     </select>
 
     <label for="valign">Vertical alignment</label>
     <select id="valign">
-        <option value="left">top</option>
-        <option value="center">center</option>
-        <option value="right">bottom</option>
-        <option value="stretch">stretch</option>
+        <option value="-1">top</option>
+        <option value="2">center</option>
+        <option value="1">bottom</option>
+        <option value="0">stretch</option>
     </select>
     
     <p />
     <div id="RegionHost" style="border: 1px solid green; width: 300px; height: 300px; position: relative">
-        <div id="Insider" style="background: blue" />
+        
     </div>
 
 
@@ -34,16 +34,17 @@
     <script type="text/javascript">
         (function () {
             var $host = $("#RegionHost");
-            var r = jspf.createRegion();
+            var r = new Jspf.Region();
             r.host = $host[0];
-            var layout = { width: 10, height: 10, horizontalAlignment: 'stretch', verticalAlignment: 'top' };
-            var c = jspf.createDomControl(layout);
-            c.dom = $("#Insider")[0];
-            r.root = c;
+            var c = new Jspf.DomControl();
+            c.get_horizontal().length = 10;
+            c.get_vertical().length = 10;
+            c.set_domContent($("<div style='background: blue' />")[0]);
+            r.set_child(c);
 
             var update = function () {
-                c.horizontalAlignment = $(halign).val();
-                c.verticalAlignment = $(valign).val();
+                c.get_horizontal().alignment = parseInt($(halign).val());
+                c.get_vertical().alignment = parseInt($(valign).val());
                 r.layOut();
             };
 

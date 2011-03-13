@@ -101,8 +101,8 @@
       <LastGenOutput>GroupTemplate.cs</LastGenOutput>
     </None>
     <None Include="Scripts\Build\BuildScripts.ps1" />
-    <None Include="Scripts\Source\Selector.js" />
-    <None Include="Scripts\Source\Utility.js" />
+    <EmbeddedResource Include="Scripts\Source\Selector.js" />
+    <EmbeddedResource Include="Scripts\Source\Utility.js" />
   </ItemGroup>
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
@@ -118,36 +118,47 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <None Include="Scripts\Build\Copy of include.txt" />
     <Content Include="Scripts\Dependencies\jquery.templates-beta1.debug.js" />
+    <EmbeddedResource Include="Scripts\Jspf.debug.js" />
+    <EmbeddedResource Include="Scripts\Jspf.js" />
+    <EmbeddedResource Include="Scripts\mscorlib.debug.js" />
+    <EmbeddedResource Include="Scripts\mscorlib.js" />
     <Content Include="Scripts\Resources\FilteredUniqueReverseDivaSelectorTemplate.htm" />
     <Content Include="Scripts\Resources\ExpertSelectorTemplate.htm" />
     <Content Include="Scripts\Resources\DivaSelectorTemplate.htm" />
     <Content Include="Scripts\Resources\FilteredReverseDivaSelectorTemplate.htm" />
-    <Content Include="Scripts\Source\jspf-layout.js" />
-    <Content Include="Scripts\Source\odorx-listbox.js" />
-    <Content Include="Scripts\Source\Group.js" />
-    <Content Include="Scripts\Source\jq-layOut.js" />
-    <Content Include="Scripts\Source\Items.js" />
-    <Content Include="Scripts\Source\KoBindings.js" />
-    <Content Include="Scripts\Source\Region.js" />
-    <Content Include="Scripts\Source\OdoRx.js" />
-    <Content Include="Scripts\Source\ui-dropbutton.js" />
-    <Content Include="Scripts\Source\ui-expert-textbox.js" />
-    <Content Include="Scripts\Source\ui-filterbox.js" />
-    <Content Include="Scripts\Source\ui-listbox.js" />
-    <Content Include="Scripts\Source\ui-popup.js" />
+    <EmbeddedResource Include="Scripts\Source\jspf-scrolling-layout.js" />
+    <EmbeddedResource Include="Scripts\Source\odorx-listbox.js" />
+    <EmbeddedResource Include="Scripts\Source\Group.js" />
+    <EmbeddedResource Include="Scripts\Source\jq-layOut.js" />
+    <EmbeddedResource Include="Scripts\Source\Items.js" />
+    <EmbeddedResource Include="Scripts\Source\KoBindings.js" />
+    <EmbeddedResource Include="Scripts\Source\Region.js" />
+    <EmbeddedResource Include="Scripts\Source\OdoRx.js" />
+    <EmbeddedResource Include="Scripts\Source\ui-dropbutton.js" />
+    <EmbeddedResource Include="Scripts\Source\ui-expert-textbox.js" />
+    <EmbeddedResource Include="Scripts\Source\ui-filterbox.js" />
+    <EmbeddedResource Include="Scripts\Source\ui-listbox.js" />
+    <EmbeddedResource Include="Scripts\Source\ui-popup.js" />
+    <EmbeddedResource Include="Scripts\Source\jspf-grid-layout.js" />
+    <EmbeddedResource Include="Scripts\fixes.js" />
     <Content Include="Styles\odo.css" />
     <None Include="Scripts\Build\include.txt" />
     <Content Include="Scripts\Resources\ReverseDivaSelectorTemplate.htm" />
-    <Content Include="Scripts\Source\FrameState.js" />
-    <Content Include="Scripts\Source\PlatformNormalizations.js" />
-    <Content Include="Scripts\Source\odo-epilog.js" />
-    <Content Include="Scripts\Source\odo-prolog.js" />
+    <EmbeddedResource Include="Scripts\Source\FrameState.js" />
+    <EmbeddedResource Include="Scripts\Source\PlatformNormalizations.js" />
+    <EmbeddedResource Include="Scripts\Source\odo-epilog.js" />
+    <EmbeddedResource Include="Scripts\Source\odo-prolog.js" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
-    <PreBuildEvent>powershell $(ProjectDir)Scripts\Build\BuildScripts.ps1</PreBuildEvent>
+    <PreBuildEvent>powershell $(ProjectDir)Scripts\Build\BuildScripts.ps1
+copy $(SolutionDir)Jspf\fixes.js $(ProjectDir)Scripts\
+copy $(SolutionDir)Jspf\bin\$(ConfigurationName)\jspf.debug.js $(ProjectDir)Scripts\
+copy $(SolutionDir)Jspf\bin\$(ConfigurationName)\jspf.js $(ProjectDir)Scripts\
+copy $(SolutionDir)Jspf\bin\$(ConfigurationName)\mscorlib.debug.js $(ProjectDir)Scripts\
+copy $(SolutionDir)Jspf\bin\$(ConfigurationName)\mscorlib.js $(ProjectDir)Scripts\
+</PreBuildEvent>
   </PropertyGroup>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

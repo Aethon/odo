@@ -1,0 +1,228 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Script.jQuery.Templating</name>
+    </assembly>
+    <members>
+        <member name="T:jQueryApi.Templating.jQueryTemplating">
+            <summary>
+            Provides access to jQuery Templating APIs.
+            </summary>
+        </member>
+        <member name="M:jQueryApi.Templating.jQueryTemplating.CreateTemplate(System.String)">
+            <summary>
+            Creates a template based on the specified template markup.
+            </summary>
+            <param name="template">The template markup.</param>
+            <returns>A compiled template.</returns>
+        </member>
+        <member name="M:jQueryApi.Templating.jQueryTemplating.CreateTemplate(System.String,System.String)">
+            <summary>
+            Creates a template based on the specified template markup.
+            </summary>
+            <param name="templateName">The name to assign to the template.</param>
+            <param name="template">The template markup.</param>
+            <returns>A compiled template.</returns>
+        </member>
+        <member name="M:jQueryApi.Templating.jQueryTemplating.CreateTemplate(System.Html.Element)">
+            <summary>
+            Creates a template based on the content of the specified element.
+            </summary>
+            <param name="templateElement">The element containing the template markup.</param>
+            <returns>A compiled template.</returns>
+        </member>
+        <member name="M:jQueryApi.Templating.jQueryTemplating.CreateTemplate(System.String,System.Html.Element)">
+            <summary>
+            Creates a template based on the content of the specified element.
+            </summary>
+            <param name="templateName">The name to assign to the template.</param>
+            <param name="templateElement">The element containing the template markup.</param>
+            <returns>A compiled template.</returns>
+        </member>
+        <member name="M:jQueryApi.Templating.jQueryTemplating.CreateTemplate(jQueryApi.jQueryObject)">
+            <summary>
+            Creates a template based on the first element of the matched set.
+            </summary>
+            <param name="o">The jQueryObject representing the element whose content is to be used as a template.</param>
+            <returns>A compiled template.</returns>
+        </member>
+        <member name="M:jQueryApi.Templating.jQueryTemplating.CreateTemplate(System.String,jQueryApi.jQueryObject)">
+            <summary>
+            Creates a template based on the first element of the matched set.
+            </summary>
+            <param name="templateName">The name to assign to the template.</param>
+            <param name="template">The jQueryObject representing the element whose content is to be used as a template.</param>
+            <returns>A compiled template.</returns>
+        </member>
+        <member name="M:jQueryApi.Templating.jQueryTemplating.GetTemplate(System.String)">
+            <summary>
+            Gets the template by name, previously created using CreateTemplate.
+            </summary>
+            <param name="templateName">The template name.</param>
+            <returns>A compiled template.</returns>
+        </member>
+        <member name="M:jQueryApi.Templating.jQueryTemplating.GetTemplateInstance(System.Html.Element)">
+            <summary>
+            Gets the template instance associated with the specified element.
+            </summary>
+            <param name="element">The element associated with a template.</param>
+            <returns>The associated template instance if one exists.</returns>
+        </member>
+        <member name="M:jQueryApi.Templating.jQueryTemplating.GetTemplateInstance(jQueryApi.jQueryObject)">
+            <summary>
+            Gets the template instance associated with the specified jQueryObject.
+            </summary>
+            <param name="o">The jQueryObject associated with a template.</param>
+            <returns>The associated template instance if one exists.</returns>
+        </member>
+        <member name="M:jQueryApi.Templating.jQueryTemplating.RenderTemplate(System.String,System.Object)">
+            <summary>
+            Creates a template based on the first element of the matched set
+            and instantiates it using the specified data.
+            </summary>
+            <param name="template">The name of a template or markup to use.</param>
+            <param name="data">The data associated with the template instance.</param>
+            <returns>The resulting elements from instantiating the template.</returns>
+        </member>
+        <member name="M:jQueryApi.Templating.jQueryTemplating.RenderTemplate(System.String,System.Object,System.Object)">
+            <summary>
+            Creates a template based on the first element of the matched set
+            and instantiates it using the specified data.
+            </summary>
+            <param name="template">The name of a template or markup to use.</param>
+            <param name="data">The data associated with the template instance.</param>
+            <param name="item">An object for use inside the template as $item.</param>
+            <returns>The resulting elements from instantiating the template.</returns>
+        </member>
+        <member name="M:jQueryApi.Templating.jQueryTemplating.RenderTemplate(System.Html.Element,System.Object)">
+            <summary>
+            Creates a template based on the first element of the matched set
+            and instantiates it using the specified data.
+            </summary>
+            <param name="templateElement">The element whose content is to be used as a template.</param>
+            <param name="data">The data associated with the template instance.</param>
+            <returns>The resulting elements from instantiating the template.</returns>
+        </member>
+        <member name="M:jQueryApi.Templating.jQueryTemplating.RenderTemplate(System.Html.Element,System.Object,System.Object)">
+            <summary>
+            Creates a template based on the first element of the matched set
+            and instantiates it using the specified data.
+            </summary>
+            <param name="templateElement">The element whose content is to be used as a template.</param>
+            <param name="data">The data associated with the template instance.</param>
+            <param name="item">An object for use inside the template as $item.</param>
+            <returns>The resulting elements from instantiating the template.</returns>
+        </member>
+        <member name="M:jQueryApi.Templating.jQueryTemplating.RenderTemplate(jQueryApi.jQueryObject,System.Object)">
+            <summary>
+            Creates a template based on the first element of the matched set
+            and instantiates it using the specified data.
+            </summary>
+            <param name="template">The jQueryObject representing the element whose content is to be used as a template.</param>
+            <param name="data">The data associated with the template instance.</param>
+            <returns>The resulting elements from instantiating the template.</returns>
+        </member>
+        <member name="M:jQueryApi.Templating.jQueryTemplating.RenderTemplate(jQueryApi.jQueryObject,System.Object,System.Object)">
+            <summary>
+            Creates a template based on the first element of the matched set
+            and instantiates it using the specified data.
+            </summary>
+            <param name="template">The jQueryObject representing the element whose content is to be used as a template.</param>
+            <param name="data">The data associated with the template instance.</param>
+            <param name="item">An object for use inside the template as $item.</param>
+            <returns>The resulting elements from instantiating the template.</returns>
+        </member>
+        <member name="M:jQueryApi.Templating.jQueryTemplating.RenderTemplate(jQueryApi.Templating.jQueryTemplate,System.Object)">
+            <summary>
+            Creates a template based on the first element of the matched set
+            and instantiates it using the specified data.
+            </summary>
+            <param name="template">The template to use.</param>
+            <param name="data">The data associated with the template instance.</param>
+            <returns>The resulting elements from instantiating the template.</returns>
+        </member>
+        <member name="M:jQueryApi.Templating.jQueryTemplating.RenderTemplate(jQueryApi.Templating.jQueryTemplate,System.Object,System.Object)">
+            <summary>
+            Creates a template based on the first element of the matched set
+            and instantiates it using the specified data.
+            </summary>
+            <param name="template">The template to use.</param>
+            <param name="data">The data associated with the template instance.</param>
+            <param name="item">An object for use inside the template as $item.</param>
+            <returns>The resulting elements from instantiating the template.</returns>
+        </member>
+        <member name="T:jQueryApi.Templating.jQueryTemplate">
+            <summary>
+            Represents a jQuery template that has been parsed and can
+            be used to generate HTML.
+            </summary>
+        </member>
+        <member name="T:jQueryApi.Templating.jQueryTemplateObject">
+            <summary>
+            Represents a jQuery result that wraps a set of elements, with templating
+            APIs added.
+            </summary>
+        </member>
+        <member name="M:jQueryApi.Templating.jQueryTemplateObject.CreateTemplate">
+            <summary>
+            Creates a template based on the first element of the matched set.
+            </summary>
+            <returns>A compiled template.</returns>
+        </member>
+        <member name="M:jQueryApi.Templating.jQueryTemplateObject.CreateTemplate(System.String)">
+            <summary>
+            Creates a named template based on the first element of the matched set.
+            </summary>
+            <param name="name">The name of the template.</param>
+            <returns>A compiled template.</returns>
+        </member>
+        <member name="M:jQueryApi.Templating.jQueryTemplateObject.GetTemplateInstance">
+            <summary>
+            Gets the template instance that the matched element is based on.
+            </summary>
+            <returns>The template instance.</returns>
+        </member>
+        <member name="M:jQueryApi.Templating.jQueryTemplateObject.RenderTemplate(System.Object)">
+            <summary>
+            Creates a template based on the first element of the matched set
+            and instantiates it using the specified data.
+            </summary>
+            <param name="data">The data associated with the template instance.</param>
+            <returns>The resulting elements from instantiating the template.</returns>
+        </member>
+        <member name="M:jQueryApi.Templating.jQueryTemplateObject.RenderTemplate(System.Object,System.Object)">
+            <summary>
+            Creates a template based on the first element of the matched set
+            and instantiates it using the specified data.
+            </summary>
+            <param name="data">The data associated with the template instance.</param>
+            <param name="item">An object for use inside the template as $item.</param>
+            <returns>The resulting elements from instantiating the template.</returns>
+        </member>
+        <member name="T:jQueryApi.Templating.jQueryTemplateInstance">
+            <summary>
+            Represents an instantiated jQuery template.
+            </summary>
+        </member>
+        <member name="M:jQueryApi.Templating.jQueryTemplateInstance.Update">
+            <summary>
+            Updates the rendering once an update template has been set.
+            </summary>
+        </member>
+        <member name="P:jQueryApi.Templating.jQueryTemplateInstance.Data">
+            <summary>
+            Gets the data that this instance is based on.
+            </summary>
+        </member>
+        <member name="P:jQueryApi.Templating.jQueryTemplateInstance.Nodes">
+            <summary>
+            Gets the elements that this template instance represents.
+            </summary>
+        </member>
+        <member name="P:jQueryApi.Templating.jQueryTemplateInstance.Template">
+            <summary>
+            Gets or sets the template that this instance is based on.
+            </summary>
+        </member>
+    </members>
+</doc>

@@ -1,12 +1,12 @@
 ﻿<table cellspacing="0" cellpadding="0">
 <tr><td><span data-bind="text: numberAvailable"></span>&nbsp;available</td><td></td><td><span data-bind="text: numberSelected"></span>&nbsp;selected</td></tr>
-<tr><td><div local-id="filterPlace" style="display:none"><select local-id="filterdrop" data-bind="options: _divaFilter.categories, optionsText: 'Name', optionsValue: 'Code'"></select></div></td><td></td><td rowspan="2"><ul local-id="selected" id="selected" tabindex="0"></ul></td><td rowspan="2" style="vertical-align: top">
+<tr><td><div local-id="filterPlace" style="display:none"><select local-id="filterdrop" data-bind="options: _divaFilter.categories, optionsText: 'Name', optionsValue: 'Code'"></select></div></td><td></td><td rowspan="2"><div local-id="selected" id="selected" tabindex="0" style="position: relative"></div></td><td rowspan="2" style="vertical-align: top">
     <button local-id="moveup" type="button" style="display: block" data-bind="enable: canArrangeUp, click: arrangeUp" data-button="{ icons: { primary: 'ui-icon-triangle-1-n' }, text: false }">Move up</button>
     <button local-id="movedown" type="button" style="display: block" data-bind="enable: canArrangeDown, click: arrangeDown" data-button="{ icons: { primary: 'ui-icon-triangle-1-s' }, text: false }">Move down</button>
     <button local-id="unselect" type="button" style="display: block" data-bind="enable: canUnselect, click: unselectFocused" data-button="{ icons: { primary: 'ui-icon-close' }, text: false }">Remove</button>
 </td></tr>
 <tr>
-    <td><ul local-id="available" id="available" tabindex="0"></ul></td>
+    <td><div local-id="available" id="available" tabindex="0" style="position: relative"></div></td>
     <td style="vertical-align: top">
         <button local-id="select" type="button" style="display: block" data-bind="enable: canSelect, click: selectFocused" data-button="{ icons: { primary: 'ui-icon-triangle-1-e' }, text: false }">Add</button>
     </td>

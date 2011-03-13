@@ -1,16 +1,209 @@
-function isScrolledIntoView($host, $subject)
-{
-    var docViewTop = $host.offset().top;
-    var docViewBottom = docViewTop + $host.height();
-
-    var elemTop = $subject.offset().top;
-    var elemBottom = elemTop + $subject.height();
-
-    return ((elemBottom >= docViewTop) && (elemTop <= docViewBottom)
-        && (elemBottom <= docViewBottom) &&  (elemTop >= docViewTop));
-}
-
 $.widget("ui.odorx_listbox", {
+    options: {
+        //     equality: odo.AreEqual,
+        tip: null // this is TEMPORARY
+    },
+
+    _create: function () {
+        var self = this;
+        this.Source = odo.Rx.CreateValueSubject(function () { return []; });
+        this.Selected = odo.Rx.CreateValueSubject(function () { return []; });
+        this.Template = odo.Rx.CreateValueSubject();
+        this.Sort = odo.Rx.CreateValueSubject();
+        this.Focus = odo.Rx.CreateValueSubject();
+        this._koItems = ko.observableArray(this.Source.Value());
+
+        this._selectionFocus = null;
+        this._selectionBase = null;
+
+        var _handleKeyDown = function (event) {
+            if (self.options.disabled || self.element.attr("readonly")) {
+                return;
+            }
+
+            var keyCode = $.ui.keyCode;
+            switch (event.keyCode) {
+                case keyCode.UP:
+                    event.preventDefault();
+                    self._move(-1, event.ctrlKey, event.shiftKey);
+                    return false;
+                case keyCode.DOWN:
+                    event.preventDefault();
+                    self._move(1, event.ctrlKey, event.shiftKey);
+                    return false;
+                case keyCode.PAGE_DOWN:
+                    event.preventDefault();
+                    self._move(self._stackpanel.getViewportLength(), event.ctrlKey, event.shiftKey);
+                    return false;
+                case keyCode.PAGE_UP:
+                    event.preventDefault();
+                    self._move(-self._stackpanel.getViewportLength(), event.ctrlKey, event.shiftKey);
+                    return false;
+                case keyCode.HOME:
+                    event.preventDefault();
+                    self._move(-self._stackpanel.getExtentLength(), event.ctrlKey, event.shiftKey);
+                    return false;
+                case keyCode.END:
+                    event.preventDefault();
+                    self._move(self._stackpanel.getExtentLength(), event.ctrlKey, event.shiftKey);
+                    return false;
+                case 65: // a
+                    if (event.ctrlKey) {
+                        self.selectAll();
+                        event.preventDefault();
+                        return false;
+                    }
+                    break;
+            }
+        };
+
+        this._region = new Jspf.Region();
+        this._region.host = this.element[0];
+        this._stackpanel = new Jspf.VirtualStackPanel();
+        this._region.set_child(this._stackpanel);
+        this._region.layOut();
+
+        var template = function (context) {
+            var result = new Jspf.DomControl();
+            var $dom = $("<div role='listitem' class='ui-list-item' style='cursor: default; position: absolute;'></div>")
+              		.mousedown(function (event) {
+              		    self.select(context, event.ctrlKey, event.shiftKey);
+              		})
+                    .dblclick(function (event) {
+                        if (self.options.dblClickItem) {
+                            self.options.dblClickItem($dom);
+                        }
+                    }).append(self.Template.Value()(context));
+
+            result.set_domContent($dom[0]);
+            result.set_selected = function (isSelected) {
+                if (isSelected) {
+                    if (!$dom.is(".aria-selected")) {
+                        $dom.addClass("aria-selected").addClass("ui-state-highlight");
+                    }
+                } else {
+                    if ($dom.is(".aria-selected")) {
+                        $dom.removeClass("aria-selected").removeClass("ui-state-highlight");
+                    }
+                }
+            };
+
+            // set initial state
+            result.set_selected(self.Selected.Value().binarySearch(context, self.Sort.Value()) >= 0);
+
+            return result;
+        };
+
+        this._generator = new Jspf.OldListItemContainerGenerator();
+        this._generator.set_comparer(this.Sort.Value());
+        this._generator.set_allItems(this._koItems);
+        this._generator.set_itemTemplate(template);
+        this._stackpanel.set_itemContainerGenerator(this._generator);
+
+        this.Source
+            .Do(function (n) { self._koItems(n); })
+            .CombineLatest(self.Sort.Do(function(v) { self._generator.set_comparer(v); }), function (a, c) {
+                var result = $.merge([], a);
+                if (c) result.sort(c);
+                return result;
+            })
+            .CombineLatest(self.Selected, function (i, s) {
+                return { items: i, selected: s };
+            })
+            .Subscribe(new Rx.Observer(function (x) {
+                self._updateElements(x.selected);
+            }));
+
+        this.Selected.Subscribe(new Rx.Observer(function (x) {
+                self._updateElements(x);
+            }));
+
+        this.element
+		.addClass("ui-list ui-widget ui-corner-all")
+        .css({ overflow: "hidden", "-khtml-user-select": "none", "-moz-user-select": "none" })
+		.attr({
+		    role: "listbox",
+		    "aria-activedescendant": "ui-active-menuitem"
+		})
+        .keydown(_handleKeyDown);
+
+        this.element[0].onselectstart = function () { return false; }; // IE way of preventing text selection
+    },
+
+    select: function (item, ctrlKey, shiftKey) {
+        if ((!(shiftKey || ctrlKey)) || (shiftKey && !_selectionBase)) {
+            this.Selected.Value([item]);
+            this._selectionBase = item;
+            this._selectionFocus = item;
+        } else if (shiftKey) {
+            var i0 = this.Source.Value().binarySearch(_selectionBase, this.Sort.Value());
+            var i1 = this.Source.Value().binarySearch(item, this.Sort.Value());
+            if (i0 > i1) {
+                var x = i0;
+                i0 = i1;
+                i1 = x;
+            }
+            var newSel = [];
+            $.each(this.Source.Value().slice(i0, i1 + 1), function (i, e) { newSel.push(e); });
+            this.Selected.Value(newSel);
+            this._selectionFocus = item;
+        } else {
+            var array = $.merge([], this.Selected.Value());
+            var index = array.binarySearch(item, this.Sort.Value());
+            if (index !== -1) {
+                array.splice(index, 1);
+            } else {
+                array.push(index);
+            }
+            this.Selected.Value(array);
+            this._selectionBase = item;
+            this._selectionFocus = item;
+        }
+    },
+
+    _selectAll: function () {
+        this.Selected.Value($.merge([], self.Source.Value()));
+    },
+
+    _move: function (dist, ctrlKey, shiftKey) {
+        // pgxx = move xx one page (from selection base) and select the item there
+        // shift+pgxx = move xx one page (from selection base), selecting the range
+        // ctrl+pgxx = move xx one page from current view (do not affect selection base)
+        var from;
+        if (ctrlKey) {
+            from = this._stackpanel.getViewportPos();
+        } else if (this._selectionFocus === null) {
+            from = 0;
+        } else {
+            from = this.Source.Value().binarySearch(this._selectionFocus, this.Sort.Value());
+        }
+
+        var to = Math.min(Math.max(0, from + dist), this.Source.Value().length - 1);
+        if (to >= 0) {
+            if (!ctrlKey) {
+                this.select(this.Source.Value()[to], false, shiftKey);
+                this._stackpanel.scrollIntoViewport(to);
+            } else {
+                this._stackpanel.moveToPos(to);
+            }
+        }
+    },
+
+    _updateElements: function (newSelection) {
+        var active = this._generator.getActiveItems();
+        for (var i = active.length - 1; i >= 0; i--) {
+            var item = active[i];
+            var container = this._generator.getContainerForItem(item);
+            if (container) {
+                container.set_selected(newSelection.binarySearch(item, self.Sort.Value()) >= 0);
+            }
+        }
+    }
+});
+
+
+
+$.widget("ui.odorx_listbox_depr", {
     options: {
         //     equality: odo.AreEqual,
         tip: null // this is TEMPORARY

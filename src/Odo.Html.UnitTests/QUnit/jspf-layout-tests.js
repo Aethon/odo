@@ -11,56 +11,41 @@
     }
 
     //------------------------------------------------------------------------
-    module("jspf-layout tests");
+    module("Jspf-layout tests");
     //------------------------------------------------------------------------
 
-    test("jspf is installed", function () {
-        ok(jspf, "jspf should be defined");
+    test("Jspf is installed", function () {
+        ok(Jspf, "Jspf should be defined");
     });
 
 
     //------------------------------------------------------------------------
-    module("jspf-layout control tests");
+    module("Jspf-layout control tests");
     //------------------------------------------------------------------------
 
-    test("jspf.createControl with no parameters succeeds", function () {
-        var c = jspf.createControl();
+    test("Jspf.createControl succeeds", function () {
+        var c = new Jspf.Control();
         ok(c, "should return an object");
         checkControlProperties(c, {});
-    });
-
-    test("jspf.createControl with empty layout succeeds", function () {
-        var c = jspf.createControl({});
-        ok(c, "should return an object");
-        checkControlProperties(c, {});
-    });
-
-    test("jspf.createControl with layout succeeds", function () {
-        var layout = { width: 10, height: 20 };
-        var c = jspf.createControl(layout);
-
-        ok(c, "should return an object");
-        checkControlProperties(c, layout);
     });
 
     test("Control.parent() succeeds and is null", function () {
-        var c = jspf.createControl();
+        var c = new Jspf.Control();
 
         ok(c.parent() === null, "should be null");
     });
 
 
     //------------------------------------------------------------------------
-    module("jspf-layout Region.layOutControl tests");
+    module("Jspf-layout Region.layOutControl tests");
     //------------------------------------------------------------------------
 
     test("Region.layOut succeeds with no root", function () {
         $host = $("<div style='width: 20px; height: 20px'>");
-        var layout = { width: 20, height: 20, horizontalAlignment: 'left', verticalAlignment: 'top' };
-        var r = jspf.createRegion();
-        r.host = $host[0];
-
         $("#qunit-fixture").append($host);
+
+        var r = new Jspf.Region();
+        r.host = $host[0];
 
         r.layOut();
     });
@@ -68,32 +53,36 @@
     test("Region.layOut succeeds with exact space available", function () {
         var $host = $("<div style='width: 20px; height: 20px'>");
         $("#qunit-fixture").append($host);
-        var r = jspf.createRegion();
+
+        var r = new Jspf.Region();
         r.host = $host[0];
+
         var layout = { width: 20, height: 20, horizontalAlignment: 'left', verticalAlignment: 'top' };
-        var c = jspf.createControl(layout);
+        var c = new Jspf.Control();
+        c.get_horizontal().length = 20;
+        c.get_vertical().length = 20;
+        c.get_horizontal().alignment = Jspf.AxisAlignment.near;
+        c.get_vertical().alignment = Jspf.AxisAlignment.near;
+
         r.root = c;
 
         r.layOut();
 
-        checkControlProperties(c,
-            {
-                _measuredWidth: layout.width,
-                _measuredHeight: layout.height,
-                _arrangedWidth: layout.width,
-                _arrangedHeight: layout.height,
-                _top: 0,
-                _left: 0
-            });
+        equals(c.MeasuredSize.Width, 20);
+        equals(c.MeasuredSize.Height, 20);
+        equals(c.VerticalArrangement.Length, 20);
+        equals(c.HorizontalArrangement.Length, 20);
+        equals(c.VerticalArrangement.Position, 0);
+        equals(c.HorizontalArrangement.Position, 0);
     });
 
     test("Region.layOut clips width", function () {
         var $host = $("<div style='width: 20px; height: 20px'>");
         $("#qunit-fixture").append($host);
-        var r = jspf.createRegion();
+        var r = Jspf.createRegion();
         r.host = $host[0];
         var layout = { width: 30, height: 10, horizontalAlignment: 'left', verticalAlignment: 'top' };
-        var c = jspf.createControl(layout);
+        var c = Jspf.createControl(layout);
         r.root = c;
 
         r.layOut();
@@ -104,24 +93,24 @@
     test("Region.layOut does not clip minWidth", function () {
         var $host = $("<div style='width: 20px; height: 20px'>");
         $("#qunit-fixture").append($host);
-        var r = jspf.createRegion();
+        var r = Jspf.createRegion();
         r.host = $host[0];
         var layout = { width: 30, minWidth: 25, height: 10, horizontalAlignment: 'left', verticalAlignment: 'top' };
-        var c = jspf.createControl(layout);
+        var c = Jspf.createControl(layout);
         r.root = c;
 
         r.layOut();
 
-        checkControlProperties(c, { _measuredWidth: 30,  _arrangedWidth: 25 });
+        checkControlProperties(c, { _measuredWidth: 30, _arrangedWidth: 25 });
     });
 
     test("Region.layOut stretches width", function () {
         var $host = $("<div style='width: 20px; height: 20px'>");
         $("#qunit-fixture").append($host);
-        var r = jspf.createRegion();
+        var r = Jspf.createRegion();
         r.host = $host[0];
         var layout = { width: 10, height: 10, horizontalAlignment: 'stretch', verticalAlignment: 'top' };
-        var c = jspf.createControl(layout);
+        var c = Jspf.createControl(layout);
         r.root = c;
 
         r.layOut();
@@ -132,10 +121,10 @@
     test("Region.layOut stretches width, respects maxWidth", function () {
         var $host = $("<div style='width: 20px; height: 20px'>");
         $("#qunit-fixture").append($host);
-        var r = jspf.createRegion();
+        var r = Jspf.createRegion();
         r.host = $host[0];
         var layout = { width: 10, maxWidth: 15, height: 10, horizontalAlignment: 'stretch', verticalAlignment: 'top' };
-        var c = jspf.createControl(layout);
+        var c = Jspf.createControl(layout);
         r.root = c;
 
         r.layOut();
@@ -146,10 +135,10 @@
     test("Region.layOut clips height", function () {
         var $host = $("<div style='width: 20px; height: 20px'>");
         $("#qunit-fixture").append($host);
-        var r = jspf.createRegion();
+        var r = Jspf.createRegion();
         r.host = $host[0];
         var layout = { width: 10, height: 30, horizontalAlignment: 'left', verticalAlignment: 'top' };
-        var c = jspf.createControl(layout);
+        var c = Jspf.createControl(layout);
         r.root = c;
 
         r.layOut();
@@ -160,10 +149,10 @@
     test("Region.layOut does not clip minHeight", function () {
         var $host = $("<div style='width: 20px; height: 20px'>");
         $("#qunit-fixture").append($host);
-        var r = jspf.createRegion();
+        var r = Jspf.createRegion();
         r.host = $host[0];
         var layout = { width: 10, minHeight: 25, height: 30, horizontalAlignment: 'left', verticalAlignment: 'top' };
-        var c = jspf.createControl(layout);
+        var c = Jspf.createControl(layout);
         r.root = c;
 
         r.layOut();
@@ -174,10 +163,10 @@
     test("Region.layOut stretches height", function () {
         var $host = $("<div style='width: 20px; height: 20px'>");
         $("#qunit-fixture").append($host);
-        var r = jspf.createRegion();
+        var r = Jspf.createRegion();
         r.host = $host[0];
         var layout = { width: 10, height: 10, horizontalAlignment: 'stretch', verticalAlignment: 'stretch' };
-        var c = jspf.createControl(layout);
+        var c = Jspf.createControl(layout);
         r.root = c;
 
         r.layOut();
@@ -188,10 +177,10 @@
     test("Region.layOut stretches width, respects maxHeight", function () {
         var $host = $("<div style='width: 20px; height: 20px'>");
         $("#qunit-fixture").append($host);
-        var r = jspf.createRegion();
+        var r = Jspf.createRegion();
         r.host = $host[0];
         var layout = { width: 10, maxHeight: 15, height: 10, horizontalAlignment: 'stretch', verticalAlignment: 'stretch' };
-        var c = jspf.createControl(layout);
+        var c = Jspf.createControl(layout);
         r.root = c;
 
         r.layOut();
@@ -201,42 +190,42 @@
 
     /*
     //------------------------------------------------------------------------
-    module("jspf-layout container tests");
+    module("Jspf-layout container tests");
     //------------------------------------------------------------------------
 
-    test("jspf.createContainer with no parameters succeeds", function () {
-    var c = jspf.createContainer();
+    test("Jspf.createContainer with no parameters succeeds", function () {
+    var c = Jspf.createContainer();
     ok(c, "should return an object");
     checkControlLayout(c, {});
     });
 
-    test("jspf.createContainer with empty layout succeeds", function () {
-    var c = jspf.createContainer({});
+    test("Jspf.createContainer with empty layout succeeds", function () {
+    var c = Jspf.createContainer({});
     ok(c, "should return an object");
     checkControlLayout(c, {});
     });
 
-    test("jspf.createContainer with layout succeeds", function () {
+    test("Jspf.createContainer with layout succeeds", function () {
     var layout = { width: 10, height: 20 };
-    var c = jspf.createContainer(layout);
+    var c = Jspf.createContainer(layout);
 
     ok(c, "should return an object");
     checkControlLayout(c, layout);
     });
 
     test("Container.children succeeds and is empty", function () {
-    var c = jspf.createContainer({}).children();
+    var c = Jspf.createContainer({}).children();
     equals(c.length, 0);
     });
 
-    test("Container.addChild with non jspf object fails", function () {
-    var c = jspf.createContainer({});
+    test("Container.addChild with non Jspf object fails", function () {
+    var c = Jspf.createContainer({});
     raises(function () { c.addChild({}); }, "should throw an exception");
     });
 
-    test("Container.addChild with jspf control succeeds", function () {
-    var c = jspf.createContainer({});
-    var ch = jspf.createControl();
+    test("Container.addChild with Jspf control succeeds", function () {
+    var c = Jspf.createContainer({});
+    var ch = Jspf.createControl();
     c.addChild(ch);
     equals(c.children().length, 1, "should have one child");
     equals(c.children()[0], ch, "should contain the original child");
@@ -245,24 +234,24 @@
 
 
     //------------------------------------------------------------------------
-    module("jspf-layout GridLayout tests");
+    module("Jspf-layout GridLayout tests");
     //------------------------------------------------------------------------
 
-    test("jspf.createGridLayout with no parameters succeeds", function () {
-    var c = jspf.createGridLayout();
+    test("Jspf.createGridLayout with no parameters succeeds", function () {
+    var c = Jspf.createGridLayout();
     ok(c, "should return an object");
     checkControlLayout(c, {});
     });
 
-    test("jspf.createGridLayout with empty layout succeeds", function () {
-    var c = jspf.createGridLayout({});
+    test("Jspf.createGridLayout with empty layout succeeds", function () {
+    var c = Jspf.createGridLayout({});
     ok(c, "should return an object");
     checkControlLayout(c, {});
     });
 
-    test("jspf.createGridLayout with layout succeeds", function () {
+    test("Jspf.createGridLayout with layout succeeds", function () {
     var layout = { width: 10, height: 20 };
-    var c = jspf.createGridLayout(layout);
+    var c = Jspf.createGridLayout(layout);
 
     ok(c, "should return an object");
     checkControlLayout(c, layout);
@@ -270,24 +259,24 @@
 
 
     //------------------------------------------------------------------------
-    module("jspf-layout StackLayout tests");
+    module("Jspf-layout StackLayout tests");
     //------------------------------------------------------------------------
 
-    test("jspf.createStackLayout with no parameters succeeds", function () {
-    var c = jspf.createStackLayout();
+    test("Jspf.createStackLayout with no parameters succeeds", function () {
+    var c = Jspf.createStackLayout();
     ok(c, "should return an object");
     checkControlLayout(c, {});
     });
 
-    test("jspf.createStackLayout with empty layout succeeds", function () {
-    var c = jspf.createStackLayout({});
+    test("Jspf.createStackLayout with empty layout succeeds", function () {
+    var c = Jspf.createStackLayout({});
     ok(c, "should return an object");
     checkControlLayout(c, {});
     });
 
-    test("jspf.createStackLayout with layout succeeds", function () {
+    test("Jspf.createStackLayout with layout succeeds", function () {
     var layout = { width: 10, height: 20 };
-    var c = jspf.createStackLayout(layout);
+    var c = Jspf.createStackLayout(layout);
 
     ok(c, "should return an object");
     checkControlLayout(c, layout);

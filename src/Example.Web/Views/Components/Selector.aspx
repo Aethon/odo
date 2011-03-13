@@ -9,7 +9,7 @@
 
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="server">
 
-    <select id="ParallelSelect" multiple="multiple"></select>
+    <select id="ParallelSelect" multiple="multiple" style="display: none"></select>
     
     <h2>Selector</h2>
     
@@ -50,6 +50,11 @@
         {
 	        border: 1px solid #CCC;
         }
+        
+        #available
+        {
+            height: 100px;
+        }
 
     </style>
 
@@ -60,12 +65,12 @@
                 .Comparison((l, r) => string.Compare(l.Description, r.Description))
                 .AvailableItemTemplate(DesignTemplate<FacilityType>.Create(e => e.Text(pctx => pctx, content: ft => ft.Description)))
                 .Symbol(t => t.Key)
-                .Mode(SelectorMode.Expert))
+                .Mode(SelectorMode.ReverseDiva))
             .Selector(pctx => pctx.FacilityTypes, b => b
                 .Comparison((l, r) => string.Compare(l.Description, r.Description))
                 .AvailableItemTemplate(DesignTemplate<FacilityType>.Create(e => e.Text(pctx => pctx, content: ft => ft.Description)))
                 .Symbol(t => t.Key)
                 .Tip(t => "ha ha ha ha")
-                .Mode(SelectorMode.FilteredUniqueReverseDiva)))
+                .Mode(SelectorMode.ReverseDiva)))
     )%>
 </asp:Content>

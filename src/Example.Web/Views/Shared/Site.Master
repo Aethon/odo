@@ -1,4 +1,4 @@
-﻿<%@ Master Language="C#" Inherits="System.Web.Mvc.ViewMasterPage" %>
+﻿    <%@ Master Language="C#" Inherits="System.Web.Mvc.ViewMasterPage" %>
 <%@ Import Namespace="odo.Html" %>
 <%@ Import Namespace="Odo.Mvc" %>
 
@@ -14,7 +14,58 @@
 	<script type="text/javascript" src="../../odo-dependencies/rx.js"></script>
 	<script type="text/javascript" src="../../odo-dependencies/rx.jquery.js"></script>
 	<script type="text/javascript" src="../../odo-dependencies/knockout-1.1.1.debug.js"></script>
-    <script type="text/javascript" src="<%= Page.GetOdoResourceUrl("odo.html") %>"></script>
+    <%= odo.Html.PageExtensions.GetHtmlIncludes("../../Scripts/odo", ResourceOptions.Debug | ResourceOptions.Odo) %>
+
+    <style type="text/css">
+        
+        .ui-list
+        {
+	        list-style:none;
+	        padding: 2px;
+	        margin: 0;
+	        display:block;
+	        background: white;
+	        border: 1px solid #CCC;
+	        width: 200px;
+	        height: 300px;
+        }
+        
+        ul.ui-list
+        {
+	        list-style:none;
+	        padding: 0;
+	        margin: 0;
+	        display:block;
+	        background: white;
+        }
+        
+        .ui-list-item 
+        {
+            margin:0;
+	        padding: 0;
+	        width: 100%;
+	        border: 1px solid transparent;
+	        list-style: none;
+        }
+        
+        .ui-text-box
+        {
+	        border: 1px solid #CCC;
+        }
+        
+        .ui-scroll-vertical-track
+        {
+            background: #EEE;
+            border-left: 1px solid #CCC;
+            border-right: 1px solid #CCC;
+        }
+        
+        .ui-scroll-vertical-thumb
+        {
+            margin-top: -1px;
+            margin-left: -1px;
+        }
+    </style>
 </head>
 
 <body>

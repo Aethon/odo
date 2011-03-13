@@ -83,10 +83,7 @@ odo.createSelectorViewModel = function (items, selectedItems, comparefn, /*symbo
                 var temp = $.merge([], viewModel.selectedItems());
                 var insertAt = temp.length;
                 if (typeof viewModel.getInsertionPoint === 'function') {
-                    var $ins = viewModel.getInsertionPoint();
-                    if ($ins && $ins.length > 0) {
-                        insertAt = $ins.data("source").__index + 1;
-                    }
+                    insertAt = viewModel.getInsertionPoint() + 1;
                 }
                 $.each(movers, function () { temp.splice(insertAt++, 0, this); });
                 reindex(temp);
@@ -104,46 +101,48 @@ odo.createSelectorViewModel = function (items, selectedItems, comparefn, /*symbo
                     temp.splice(movers[i].__index, 1);
                 }
                 reindex(temp);
-                selectedItems(temp);
+                viewModel.selectedItems(temp);
+                viewModel.focusedSelectedItems([]);
             }
         };
 
         viewModel.arrangeUp = function () {
             var focus = viewModel.focusedSelectedItems();
-            if (focus.length === 1) {
-                var item = focus[0];
-                var index = item.__index;
-                if (index > 0) {
-                    var items = viewModel.selectedItems();
-                    items[index - 1].__index = index;
-                    item.__index = index - 1;
-                    items.sort(selectedSort);
-                    viewModel.selectedItems(items);
-                    viewModel.focusedSelectedItems([item]);
+            if (focus.length && focus[0].__index) {
+                var items = viewModel.selectedItems();
+                for (var i = 0; i < focus.length; i++) {
+                    var item = focus[i];
+                    var index = item.__index;
+                    var other = items[index - 1];
+                    items[index - 1] = item;
+                    items[index] = other;
                 }
+                reindex(items);
+                viewModel.selectedItems.notifySubscribers(items);
+                viewModel.focusedSelectedItems.notifySubscribers(focus);
             }
         };
 
         viewModel.arrangeDown = function () {
             var focus = viewModel.focusedSelectedItems();
-            if (focus.length === 1) {
-                var item = focus[0];
-                var index = item.__index;
-                var items = viewModel.selectedItems();
-                if (index < items.length - 1) {
-                    items[index + 1].__index = index;
-                    item.__index = index + 1;
-                    items.sort(selectedSort);
-                    viewModel.selectedItems(items);
-                    viewModel.focusedSelectedItems([item]);
+            var items = viewModel.selectedItems();
+            if (focus.length && focus[focus.length - 1].__index < items.length - 1) {
+                for (var i = focus.length - 1; i >= 0; i--) {
+                    var item = focus[i];
+                    var index = item.__index;
+                    var other = items[index + 1];
+                    items[index + 1] = item;
+                    items[index] = other;
                 }
+                reindex(items);
+                viewModel.selectedItems.notifySubscribers(items);
+                viewModel.focusedSelectedItems.notifySubscribers(focus);
             }
         };
 
         viewModel.selectAll = function () { };
         viewModel.unselectAll = function () { };
-    }
-    else {
+    } else {
         // moves all items in the focusedAvailableItems list into the selected list
         viewModel.selectFocused = function () {
             var movers = $.merge([], viewModel.focusedAvailableItems());
@@ -203,8 +202,8 @@ odo.createSelectorViewModel = function (items, selectedItems, comparefn, /*symbo
     viewModel.numberAvailable = ko.dependentObservable(function () {
         return viewModel.availableItems().length;
     }, viewModel);
-    viewModel.canArrangeUp = ko.dependentObservable(function () { return viewModel.focusedSelectedItems().length === 1; }, viewModel);
-    viewModel.canArrangeDown = ko.dependentObservable(function () { return viewModel.focusedSelectedItems().length === 1; }, viewModel);
+    viewModel.canArrangeUp = ko.dependentObservable(function () { return viewModel.focusedSelectedItems().length; }, viewModel);
+    viewModel.canArrangeDown = ko.dependentObservable(function () { return viewModel.focusedSelectedItems().length; }, viewModel);
 
 
     if (!copyMode) {
@@ -266,6 +265,8 @@ odo.html.createSelectorDom = function (viewModel, options) {
         comparefn: options.compare,
         template: options.selectedTemplate || options.availableTemplate,
         tip: options.tip
+    }).layOut(function () {
+        this.data("listbox").layOut();
     });
     $("[local-id='available']", dom).listbox({ source: viewModel.availableItems,
         selection: viewModel.focusedAvailableItems,
@@ -273,6 +274,8 @@ odo.html.createSelectorDom = function (viewModel, options) {
         template: options.availableTemplate,
         dblClickItem: viewModel.selectFocused,
         tip: options.tip
+    }).layOut(function () {
+        this.data("listbox").layOut();
     });
     $("[local-id='dropButton']", dom).dropbutton({ panel: $tradePanel.data("popup"), $serves: $expertText });
     var $t = $("[local-id='selectAll']", dom);
@@ -340,10 +343,10 @@ odo.html.createListComposerDom = function (viewModel, options) {
         .layOut(function () {
             this.position({ my: "left top", at: "left bottom", of: $expertText, offset: "0 -1" });
         });
-
+    /*
     var selected = $("[local-id='selected']", dom).odorx_listbox({ source: viewModel.selectedItems,
-        template: options.selectedTemplate || options.availableTemplate,
-        tip: options.tip
+    template: options.selectedTemplate || options.availableTemplate,
+    tip: options.tip
     }).data("odorx_listbox");
     selected.Sort.Value(viewModel.selectedSort);
     selected.Source.Source(odo.Rx.KoToObservable(viewModel.selectedItems));
@@ -352,24 +355,60 @@ odo.html.createListComposerDom = function (viewModel, options) {
     selected.Selected.Source(odo.Rx.KoToObservable(viewModel.focusedSelectedItems));
 
     selected.Selected.Select(function (x) {
-        return $.merge([], x).sort(viewModel.focusedSelectedItems.odoCompare);
+    return $.merge([], x).sort(viewModel.focusedSelectedItems.odoCompare);
     }).DistinctUntilChanged(function (x) {
-        return x;
+    return x;
     }, function (l, r) {
-        if (l.length !== r.length) {
-            return false;
-        }
-        var count = l.length;
-        var comp = selected.Sort.Value();
-        for (var i = 0; i < count; i++) {
-            if (comp(l[i], r[i]) != 0) {
-                return false;
-            }
-        }
-        return true;
+    if (l.length !== r.length) {
+    return false;
+    }
+    var count = l.length;
+    var comp = selected.Sort.Value();
+    for (var i = 0; i < count; i++) {
+    if (comp(l[i], r[i]) != 0) {
+    return false;
+    }
+    }
+    return true;
     }).Subscribe(new Rx.Observer(function (value) {
-        viewModel.focusedSelectedItems(value);
+    viewModel.focusedSelectedItems(value);
     }));
+    */
+
+
+    var selected = $("[local-id='selected']", dom).listbox({ source: viewModel.selectedItems,
+        selection: viewModel.focusedSelectedItems,
+        comparefn: viewModel.selectedSort,
+        template: options.selectedTemplate || options.availableTemplate,
+        tip: options.tip
+    }).layOut(function () {
+        this.data("listbox").layOut();
+    }).data("listbox");
+    //selected.Sort.Value(viewModel.selectedSort);
+    //selected.Source.Source(odo.Rx.KoToObservable(viewModel.selectedItems));
+    //viewModel.selectedItems.notifySubscribers(viewModel.selectedItems());
+    //selected.Selected.Source(odo.Rx.KoToObservable(viewModel.focusedSelectedItems));
+    /*
+    odo.Rx.KoToObservable(viewModel.selectedItems).Select(function (x) {
+    return $.merge([], x).sort(viewModel.focusedSelectedItems.odoCompare);
+    }).DistinctUntilChanged(function (x) {
+    return x;
+    }, function (l, r) {
+    if (l.length !== r.length) {
+    return false;
+    }
+    var count = l.length;
+    var comp = selected.Sort.Value();
+    for (var i = 0; i < count; i++) {
+    if (comp(l[i], r[i]) != 0) {
+    return false;
+    }
+    }
+    return true;
+    }).Subscribe(new Rx.Observer(function (value) {
+    viewModel.focusedSelectedItems(value);
+    }));
+    */
 
     $("[local-id='available']", dom).listbox({ source: viewModel.availableItems,
         selection: viewModel.focusedAvailableItems,
@@ -377,6 +416,8 @@ odo.html.createListComposerDom = function (viewModel, options) {
         template: options.availableTemplate,
         dblClickItem: viewModel.selectFocused,
         tip: options.tip
+    }).layOut(function () {
+        this.data("listbox").layOut();
     });
     $("[local-id='dropButton']", dom).dropbutton({ panel: $tradePanel.data("popup"), $serves: $expertText });
 
@@ -386,9 +427,15 @@ odo.html.createListComposerDom = function (viewModel, options) {
         $filterPlace.append(filterDom);
     }
 
+    var _insertionPoint = -1;
     viewModel.getInsertionPoint = function () {
-        return selected.element.children(".ui-list-focus:last");
+        return _insertionPoint < 0 ? viewModel.selectedItems().length : _insertionPoint;
     };
+    viewModel.focusedSelectedItems.subscribe(function (v) {
+        if (v.length > 0) {
+            _insertionPoint = v[0].__index;
+        }
+    });
 
     // TODO Move elsewhere
     var $t = $("[local-id='moveup']", dom);
