@@ -2379,15 +2379,13 @@ odo.html.createListComposerDom = function (viewModel, options) {
         $filterPlace.append(filterDom);
     }
 
-    var _insertionPoint = null;
+    var _insertionPoint = -1;
     viewModel.getInsertionPoint = function () {
-        return _insertionPoint || viewModel.selectedItems().length;
+        return _insertionPoint < 0 ? viewModel.selectedItems().length : _insertionPoint;
     };
-    viewModel.selectedItems.subscribe(function (v) {
+    viewModel.focusedSelectedItems.subscribe(function (v) {
         if (v.length > 0) {
             _insertionPoint = v[0].__index;
-        } else {
-            _insertionPoint = null;
         }
     });
 
