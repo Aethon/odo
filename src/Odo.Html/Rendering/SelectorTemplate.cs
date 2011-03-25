@@ -13,7 +13,7 @@ namespace Odo.Html.Rendering
     using System;
     
     
-    #line 1 "C:\Projects\Odo\Odo.Html\Rendering\SelectorTemplate.tt"
+    #line 1 "C:\Projects\Odo\src\Odo.Html\Rendering\SelectorTemplate.tt"
     [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.VisualStudio.TextTemplating", "10.0.0.0")]
     public partial class SelectorTemplate : SelectorTemplateBase
     {
@@ -78,21 +78,21 @@ namespace Odo.Html.Rendering
             this.GenerationEnvironment = null;
             this.Write("\r\nfunction (svm) {\r\n");
             
-            #line 7 "C:\Projects\Odo\Odo.Html\Rendering\SelectorTemplate.tt"
+            #line 7 "C:\Projects\Odo\src\Odo.Html\Rendering\SelectorTemplate.tt"
  if (Data.CategoryFilter) { 
             
             #line default
             #line hidden
             this.Write("\tsvm._reportCategories = ko.observableArray((");
             
-            #line 8 "C:\Projects\Odo\Odo.Html\Rendering\SelectorTemplate.tt"
+            #line 8 "C:\Projects\Odo\src\Odo.Html\Rendering\SelectorTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(Data.Categories));
             
             #line default
             #line hidden
             this.Write(")(svm)());\r\n\tsvm._reportFields = ko.observableArray((");
             
-            #line 9 "C:\Projects\Odo\Odo.Html\Rendering\SelectorTemplate.tt"
+            #line 9 "C:\Projects\Odo\src\Odo.Html\Rendering\SelectorTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(Data.From));
             
             #line default
@@ -100,271 +100,271 @@ namespace Odo.Html.Rendering
             this.Write(")(svm)());\r\n\tvar filter = odo.categorizedItemsView(svm._reportFields, svm._report" +
                     "Categories, (");
             
-            #line 10 "C:\Projects\Odo\Odo.Html\Rendering\SelectorTemplate.tt"
+            #line 10 "C:\Projects\Odo\src\Odo.Html\Rendering\SelectorTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(Data.Category));
             
             #line default
             #line hidden
             this.Write(")(svm), ");
             
-            #line 10 "C:\Projects\Odo\Odo.Html\Rendering\SelectorTemplate.tt"
+            #line 10 "C:\Projects\Odo\src\Odo.Html\Rendering\SelectorTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(Data.GetCategoryKey));
             
             #line default
             #line hidden
             this.Write(" , ");
             
-            #line 10 "C:\Projects\Odo\Odo.Html\Rendering\SelectorTemplate.tt"
+            #line 10 "C:\Projects\Odo\src\Odo.Html\Rendering\SelectorTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(Data.GetItemCategories));
             
             #line default
             #line hidden
             this.Write(", ");
             
-            #line 10 "C:\Projects\Odo\Odo.Html\Rendering\SelectorTemplate.tt"
+            #line 10 "C:\Projects\Odo\src\Odo.Html\Rendering\SelectorTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(Data.CompareCategories));
             
             #line default
             #line hidden
             this.Write(", ");
             
-            #line 10 "C:\Projects\Odo\Odo.Html\Rendering\SelectorTemplate.tt"
+            #line 10 "C:\Projects\Odo\src\Odo.Html\Rendering\SelectorTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(Data.Comparison));
             
             #line default
             #line hidden
             this.Write(");\r\n");
             
-            #line 11 "C:\Projects\Odo\Odo.Html\Rendering\SelectorTemplate.tt"
+            #line 11 "C:\Projects\Odo\src\Odo.Html\Rendering\SelectorTemplate.tt"
  } 
             
             #line default
             #line hidden
             this.Write("\tvar vm = odo.createSelectorViewModel(\r\n\t");
             
-            #line 13 "C:\Projects\Odo\Odo.Html\Rendering\SelectorTemplate.tt"
+            #line 13 "C:\Projects\Odo\src\Odo.Html\Rendering\SelectorTemplate.tt"
  if (Data.CategoryFilter) { 
             
             #line default
             #line hidden
             this.Write("filter.items");
             
-            #line 13 "C:\Projects\Odo\Odo.Html\Rendering\SelectorTemplate.tt"
+            #line 13 "C:\Projects\Odo\src\Odo.Html\Rendering\SelectorTemplate.tt"
  }else{ 
             
             #line default
             #line hidden
             this.Write("(");
             
-            #line 13 "C:\Projects\Odo\Odo.Html\Rendering\SelectorTemplate.tt"
+            #line 13 "C:\Projects\Odo\src\Odo.Html\Rendering\SelectorTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(Data.From));
             
             #line default
             #line hidden
             this.Write(")(svm)");
             
-            #line 13 "C:\Projects\Odo\Odo.Html\Rendering\SelectorTemplate.tt"
+            #line 13 "C:\Projects\Odo\src\Odo.Html\Rendering\SelectorTemplate.tt"
  } 
             
             #line default
             #line hidden
             this.Write(", (");
             
-            #line 13 "C:\Projects\Odo\Odo.Html\Rendering\SelectorTemplate.tt"
+            #line 13 "C:\Projects\Odo\src\Odo.Html\Rendering\SelectorTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(Data.Current));
             
             #line default
             #line hidden
             this.Write(")(svm), ");
             
-            #line 13 "C:\Projects\Odo\Odo.Html\Rendering\SelectorTemplate.tt"
+            #line 13 "C:\Projects\Odo\src\Odo.Html\Rendering\SelectorTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(Data.Comparison));
             
             #line default
             #line hidden
             this.Write(",\r\n\t\t");
             
-            #line 14 "C:\Projects\Odo\Odo.Html\Rendering\SelectorTemplate.tt"
+            #line 14 "C:\Projects\Odo\src\Odo.Html\Rendering\SelectorTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(Data.Selector.Mode == SelectorMode.FilteredUniqueReverseDiva ? "true" : "false"));
             
             #line default
             #line hidden
             this.Write(");\r\n\t");
             
-            #line 15 "C:\Projects\Odo\Odo.Html\Rendering\SelectorTemplate.tt"
+            #line 15 "C:\Projects\Odo\src\Odo.Html\Rendering\SelectorTemplate.tt"
  if (Data.CategoryFilter) { 
             
             #line default
             #line hidden
             this.Write("\t\tvm._divaFilter = filter;\r\n\t\t");
             
-            #line 17 "C:\Projects\Odo\Odo.Html\Rendering\SelectorTemplate.tt"
+            #line 17 "C:\Projects\Odo\src\Odo.Html\Rendering\SelectorTemplate.tt"
  } 
             
             #line default
             #line hidden
             this.Write("\t\t");
             
-            #line 18 "C:\Projects\Odo\Odo.Html\Rendering\SelectorTemplate.tt"
+            #line 18 "C:\Projects\Odo\src\Odo.Html\Rendering\SelectorTemplate.tt"
  if (Data.Selector.Mode == SelectorMode.FilteredUniqueReverseDiva) { 
             
             #line default
             #line hidden
             this.Write("\t\t\tvar dom = odo.html.createListComposerDom(vm,\r\n\t\t");
             
-            #line 20 "C:\Projects\Odo\Odo.Html\Rendering\SelectorTemplate.tt"
+            #line 20 "C:\Projects\Odo\src\Odo.Html\Rendering\SelectorTemplate.tt"
  } else { 
             
             #line default
             #line hidden
             this.Write("\t\t\tvar dom = odo.html.createSelectorDom(vm,\r\n\t\t");
             
-            #line 22 "C:\Projects\Odo\Odo.Html\Rendering\SelectorTemplate.tt"
+            #line 22 "C:\Projects\Odo\src\Odo.Html\Rendering\SelectorTemplate.tt"
  } 
             
             #line default
             #line hidden
             this.Write("\t\t{ mode: \'");
             
-            #line 23 "C:\Projects\Odo\Odo.Html\Rendering\SelectorTemplate.tt"
+            #line 23 "C:\Projects\Odo\src\Odo.Html\Rendering\SelectorTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(Data.Selector.Mode.ToString()));
             
             #line default
             #line hidden
             this.Write("\',\r\n\t\t  compare: ");
             
-            #line 24 "C:\Projects\Odo\Odo.Html\Rendering\SelectorTemplate.tt"
+            #line 24 "C:\Projects\Odo\src\Odo.Html\Rendering\SelectorTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(Data.Comparison));
             
             #line default
             #line hidden
             this.Write("\r\n\t\t\t");
             
-            #line 25 "C:\Projects\Odo\Odo.Html\Rendering\SelectorTemplate.tt"
+            #line 25 "C:\Projects\Odo\src\Odo.Html\Rendering\SelectorTemplate.tt"
  if (Data.AvailableTemplateScript != null) { 
             
             #line default
             #line hidden
             this.Write(", availableTemplate: ");
             
-            #line 25 "C:\Projects\Odo\Odo.Html\Rendering\SelectorTemplate.tt"
+            #line 25 "C:\Projects\Odo\src\Odo.Html\Rendering\SelectorTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(Data.AvailableTemplateScript));
             
             #line default
             #line hidden
             
-            #line 25 "C:\Projects\Odo\Odo.Html\Rendering\SelectorTemplate.tt"
+            #line 25 "C:\Projects\Odo\src\Odo.Html\Rendering\SelectorTemplate.tt"
  } 
             
             #line default
             #line hidden
             this.Write("\t\t\t");
             
-            #line 26 "C:\Projects\Odo\Odo.Html\Rendering\SelectorTemplate.tt"
+            #line 26 "C:\Projects\Odo\src\Odo.Html\Rendering\SelectorTemplate.tt"
  if (Data.SelectedTemplateScript != null)  { 
             
             #line default
             #line hidden
             this.Write(", selectedTemplate: ");
             
-            #line 26 "C:\Projects\Odo\Odo.Html\Rendering\SelectorTemplate.tt"
+            #line 26 "C:\Projects\Odo\src\Odo.Html\Rendering\SelectorTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(Data.SelectedTemplateScript));
             
             #line default
             #line hidden
             
-            #line 26 "C:\Projects\Odo\Odo.Html\Rendering\SelectorTemplate.tt"
+            #line 26 "C:\Projects\Odo\src\Odo.Html\Rendering\SelectorTemplate.tt"
  } 
             
             #line default
             #line hidden
             this.Write("\t\t\t");
             
-            #line 27 "C:\Projects\Odo\Odo.Html\Rendering\SelectorTemplate.tt"
+            #line 27 "C:\Projects\Odo\src\Odo.Html\Rendering\SelectorTemplate.tt"
  if (Data.Symbol != null) { 
             
             #line default
             #line hidden
             this.Write(", symbol: ");
             
-            #line 27 "C:\Projects\Odo\Odo.Html\Rendering\SelectorTemplate.tt"
+            #line 27 "C:\Projects\Odo\src\Odo.Html\Rendering\SelectorTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(Data.Symbol));
             
             #line default
             #line hidden
             this.Write(" ");
             
-            #line 27 "C:\Projects\Odo\Odo.Html\Rendering\SelectorTemplate.tt"
+            #line 27 "C:\Projects\Odo\src\Odo.Html\Rendering\SelectorTemplate.tt"
  } 
             
             #line default
             #line hidden
             this.Write("\t\t\t");
             
-            #line 28 "C:\Projects\Odo\Odo.Html\Rendering\SelectorTemplate.tt"
+            #line 28 "C:\Projects\Odo\src\Odo.Html\Rendering\SelectorTemplate.tt"
  if (Data.Tip != null) { 
             
             #line default
             #line hidden
             this.Write(", tip: ");
             
-            #line 28 "C:\Projects\Odo\Odo.Html\Rendering\SelectorTemplate.tt"
+            #line 28 "C:\Projects\Odo\src\Odo.Html\Rendering\SelectorTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(Data.Tip));
             
             #line default
             #line hidden
             this.Write(" ");
             
-            #line 28 "C:\Projects\Odo\Odo.Html\Rendering\SelectorTemplate.tt"
+            #line 28 "C:\Projects\Odo\src\Odo.Html\Rendering\SelectorTemplate.tt"
  } 
             
             #line default
             #line hidden
             this.Write("\t\t\t");
             
-            #line 29 "C:\Projects\Odo\Odo.Html\Rendering\SelectorTemplate.tt"
+            #line 29 "C:\Projects\Odo\src\Odo.Html\Rendering\SelectorTemplate.tt"
  if (Data.CaptureId != null) { 
             
             #line default
             #line hidden
             this.Write(", captureId: \'");
             
-            #line 29 "C:\Projects\Odo\Odo.Html\Rendering\SelectorTemplate.tt"
+            #line 29 "C:\Projects\Odo\src\Odo.Html\Rendering\SelectorTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(Data.CaptureId));
             
             #line default
             #line hidden
             this.Write("\' ");
             
-            #line 29 "C:\Projects\Odo\Odo.Html\Rendering\SelectorTemplate.tt"
+            #line 29 "C:\Projects\Odo\src\Odo.Html\Rendering\SelectorTemplate.tt"
  } 
             
             #line default
             #line hidden
             this.Write("\t\t\t");
             
-            #line 30 "C:\Projects\Odo\Odo.Html\Rendering\SelectorTemplate.tt"
+            #line 30 "C:\Projects\Odo\src\Odo.Html\Rendering\SelectorTemplate.tt"
  if (Data.CaptureKeyScript != null) { 
             
             #line default
             #line hidden
             this.Write(", captureKey: ");
             
-            #line 30 "C:\Projects\Odo\Odo.Html\Rendering\SelectorTemplate.tt"
+            #line 30 "C:\Projects\Odo\src\Odo.Html\Rendering\SelectorTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(Data.CaptureKeyScript));
             
             #line default
             #line hidden
             this.Write(" ");
             
-            #line 30 "C:\Projects\Odo\Odo.Html\Rendering\SelectorTemplate.tt"
+            #line 30 "C:\Projects\Odo\src\Odo.Html\Rendering\SelectorTemplate.tt"
  } 
             
             #line default
             #line hidden
-            this.Write("\t} );\r\n\t");
+            this.Write("\t} );\r\n\tsvm._selectedReportFields = vm.selectedItems;\r\n\t");
             
-            #line 32 "C:\Projects\Odo\Odo.Html\Rendering\SelectorTemplate.tt"
+            #line 33 "C:\Projects\Odo\src\Odo.Html\Rendering\SelectorTemplate.tt"
  if (Data.CategoryFilter) { 
             
             #line default
@@ -374,7 +374,7 @@ namespace Odo.Html.Rendering
                     "            if (code === this.Code) {\r\n\t\t\t\t\tvar sel = this;\r\n\t\t\t\t\tsetTimeout(fun" +
                     "ction() { (");
             
-            #line 38 "C:\Projects\Odo\Odo.Html\Rendering\SelectorTemplate.tt"
+            #line 39 "C:\Projects\Odo\src\Odo.Html\Rendering\SelectorTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(Data.Category));
             
             #line default
@@ -385,12 +385,13 @@ namespace Odo.Html.Rendering
             });
         };
 		filter.categories.subscribe(_respondToFilter);
+		svm._reportCategories.subscribe(_respondToFilter);
 		$(""[local-id='filterdrop']"", dom).change(_respondToFilter);
 		$(""[local-id='filterPlace']"", dom).show();
 		$(function () { _respondToFilter(); });
 		");
             
-            #line 47 "C:\Projects\Odo\Odo.Html\Rendering\SelectorTemplate.tt"
+            #line 49 "C:\Projects\Odo\src\Odo.Html\Rendering\SelectorTemplate.tt"
  } 
             
             #line default
@@ -399,7 +400,7 @@ namespace Odo.Html.Rendering
             return this.GenerationEnvironment.ToString();
         }
         
-        #line 1 "C:\Projects\Odo\Odo.Html\Rendering\SelectorTemplate.tt"
+        #line 1 "C:\Projects\Odo\src\Odo.Html\Rendering\SelectorTemplate.tt"
 
 private global::Odo.Html.Rendering.SelectorRenderData _DataField;
 

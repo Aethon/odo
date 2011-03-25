@@ -193,6 +193,10 @@ namespace Odo.Html.Rendering
             {
                 return subject.ToString();
             }
+            if (subject is Enum)
+            {
+                return Convert.ChangeType(subject, Enum.GetUnderlyingType(subject.GetType())).ToString();
+            }
 
             var memberlist = node.Members.Select(RenderMember).ToList();
             if (node.Metadata.Count > 0)
