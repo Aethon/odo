@@ -92,7 +92,8 @@ namespace Odo.Core.Rendering
                 || instance is ulong
                 || instance is float
                 || instance is double
-                || instance is decimal)
+                || instance is decimal
+                || instance is Enum)
             {
                 return InstanceType.Value;
             }

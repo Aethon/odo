@@ -74,5 +74,10 @@ namespace Odo.Html.UnitTests
             return () => r * 4 + k;
         }
         
+        [Test]
+        public void SerializeEnumReturnsInteger()
+        {
+            
+        }
     }
 }

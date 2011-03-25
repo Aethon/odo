@@ -264,6 +264,7 @@ odo.html.createSelectorDom = function (viewModel, options) {
         selection: viewModel.focusedSelectedItems,
         comparefn: options.compare,
         template: options.selectedTemplate || options.availableTemplate,
+        dblClickItem: viewModel.unselectFocused,
         tip: options.tip
     }).layOut(function () {
         this.data("listbox").layOut();
@@ -343,38 +344,6 @@ odo.html.createListComposerDom = function (viewModel, options) {
         .layOut(function () {
             this.position({ my: "left top", at: "left bottom", of: $expertText, offset: "0 -1" });
         });
-    /*
-    var selected = $("[local-id='selected']", dom).odorx_listbox({ source: viewModel.selectedItems,
-    template: options.selectedTemplate || options.availableTemplate,
-    tip: options.tip
-    }).data("odorx_listbox");
-    selected.Sort.Value(viewModel.selectedSort);
-    selected.Source.Source(odo.Rx.KoToObservable(viewModel.selectedItems));
-    viewModel.selectedItems.notifySubscribers(viewModel.selectedItems());
-
-    selected.Selected.Source(odo.Rx.KoToObservable(viewModel.focusedSelectedItems));
-
-    selected.Selected.Select(function (x) {
-    return $.merge([], x).sort(viewModel.focusedSelectedItems.odoCompare);
-    }).DistinctUntilChanged(function (x) {
-    return x;
-    }, function (l, r) {
-    if (l.length !== r.length) {
-    return false;
-    }
-    var count = l.length;
-    var comp = selected.Sort.Value();
-    for (var i = 0; i < count; i++) {
-    if (comp(l[i], r[i]) != 0) {
-    return false;
-    }
-    }
-    return true;
-    }).Subscribe(new Rx.Observer(function (value) {
-    viewModel.focusedSelectedItems(value);
-    }));
-    */
-
 
     var selected = $("[local-id='selected']", dom).listbox({ source: viewModel.selectedItems,
         selection: viewModel.focusedSelectedItems,
@@ -384,31 +353,6 @@ odo.html.createListComposerDom = function (viewModel, options) {
     }).layOut(function () {
         this.data("listbox").layOut();
     }).data("listbox");
-    //selected.Sort.Value(viewModel.selectedSort);
-    //selected.Source.Source(odo.Rx.KoToObservable(viewModel.selectedItems));
-    //viewModel.selectedItems.notifySubscribers(viewModel.selectedItems());
-    //selected.Selected.Source(odo.Rx.KoToObservable(viewModel.focusedSelectedItems));
-    /*
-    odo.Rx.KoToObservable(viewModel.selectedItems).Select(function (x) {
-    return $.merge([], x).sort(viewModel.focusedSelectedItems.odoCompare);
-    }).DistinctUntilChanged(function (x) {
-    return x;
-    }, function (l, r) {
-    if (l.length !== r.length) {
-    return false;
-    }
-    var count = l.length;
-    var comp = selected.Sort.Value();
-    for (var i = 0; i < count; i++) {
-    if (comp(l[i], r[i]) != 0) {
-    return false;
-    }
-    }
-    return true;
-    }).Subscribe(new Rx.Observer(function (value) {
-    viewModel.focusedSelectedItems(value);
-    }));
-    */
 
     $("[local-id='available']", dom).listbox({ source: viewModel.availableItems,
         selection: viewModel.focusedAvailableItems,
@@ -464,5 +408,5 @@ odo.html.createListComposerDom = function (viewModel, options) {
             _updateParallelSelect();
         }
     }
-    return dom;
+    return dom; 
 };

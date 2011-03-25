@@ -29,6 +29,7 @@ function (svm) {
 			<# if (Data.CaptureId != null) { #>, captureId: '<#= Data.CaptureId #>' <# } #>
 			<# if (Data.CaptureKeyScript != null) { #>, captureKey: <#= Data.CaptureKeyScript #> <# } #>
 	} );
+	svm._selectedReportFields = vm.selectedItems;
 	<# if (Data.CategoryFilter) { #>
         var _respondToFilter = function () {
 			var code = $("[local-id='filterdrop']", dom).val();
@@ -41,6 +42,7 @@ function (svm) {
             });
         };
 		filter.categories.subscribe(_respondToFilter);
+		svm._reportCategories.subscribe(_respondToFilter);
 		$("[local-id='filterdrop']", dom).change(_respondToFilter);
 		$("[local-id='filterPlace']", dom).show();
 		$(function () { _respondToFilter(); });
