@@ -37,16 +37,7 @@
             for (var i = 1; i < 100; i++) {
                 items().push(i);
             }
-            /*
-            var rxbox = $("#oldlist").odorx_listbox({}).data("odorx_listbox");
 
-            rxbox.Template.Value(function (i) { return $("<div>" + i + "</div>")[0]; });
-            rxbox.Sort.Value(function (l, r) { return l - r; });
-            rxbox.Source.Source(odo.Rx.KoToObservable(items));
-            rxbox.Selected.Source(odo.Rx.KoToObservable(selected));
-
-            items.notifySubscribers(items());
-            */
             $("#newlist").listbox({ source: items,
                 selection: selected,
                 comparefn: function (l, r) { return l - r; },

@@ -1,61 +1,31 @@
-// TempBridgeItems.cs
+// ColumnListItemContainerGenerator.cs
 //
 
 using System;
 using System.Collections;
-using System.Runtime.CompilerServices;
 using jQueryApi;
 
 namespace Jspf
 {
-    public delegate ArrayList KoObservableArray();
-
-    public delegate int UniqueSortCompare(object left, object right);
-
-    internal class Generation
-    {
-        public UiElement Container;
-        public object Item;
-
-        public Generation(object item, UiElement container)
-        {
-            Container = container;
-            Item = item;
-        }
-    }
-
-    public class OldListItemContainerGenerator : IItemContainerGenerator
+    public class SortedSetItemContainerGenerator : IItemContainerGenerator
     {
         private readonly ArrayList _generations = new ArrayList();
 
-        public UniqueSortCompare Comparer
-        {
-            get { return _comparer; }
-            set { _comparer = value; }
-        }
-        private UniqueSortCompare _comparer;
-
-        public KoObservableArray AllItems
+        public ISortedSet AllItems // TODO?: need to be able to bind this
         {
             get { return _allItems; }
             set
             {
                 _allItems = value;
-                if (_allItems != null)
-                {
-                    ((KoSubscribable) (object) _allItems).Subscribe(delegate
-                                                                        {
-                                                                            if (Changed != null)
-                                                                                Changed();
-                                                                        });
-                }
+                if (Changed != null)
+                    Changed();
             }
         }
-        private KoObservableArray _allItems;
+        private ISortedSet _allItems;
 
         public int Count()
         {
-            return _allItems == null ? 0 : _allItems().Count;
+            return _allItems == null ? 0 : _allItems.Count;
         }
 
         public Template ItemTemplate
@@ -72,7 +42,7 @@ namespace Jspf
             UiElement result = GetContainerForIndex(index);
             if (result == null)
             {
-                object item = _allItems()[index];
+                object item = _allItems.GetItem(index);
                 result = _itemTemplate(item);
                 _generations.Add(new Generation(item, result));
             }
@@ -81,7 +51,7 @@ namespace Jspf
 
         public UiElement GetContainerForIndex(int index)
         {
-            object item = _allItems()[index];
+            object item = _allItems.GetItem(index);
             return GetContainerForItem(item);
         }
 
@@ -117,7 +87,7 @@ namespace Jspf
             if (item == null)
                 return -1;
 
-            return ((ArrayListExt) (object) _allItems()).BinarySearch(item, _comparer);
+            return _allItems.IndexOf(item);
         }
 
         public void ReleaseContainer(UiElement container)
@@ -137,17 +107,6 @@ namespace Jspf
         public ArrayList GetActiveItems()
         {
             return (ArrayList)(object)jQuery.Map((Array)(object)_generations, delegate(object element, int index) { return ((Generation) element).Item; });
-        }
-    }
-
-    public delegate void ActionObject(object value);
-
-    [Imported]
-    public class KoSubscribable
-    {
-        public Action Subscribe(ActionObject handler)
-        {
-            return null;
         }
     }
 }

@@ -23,23 +23,23 @@ namespace Jspf.UnitTests
             QUnit.test("Set Decorator.Child succeeds with Control", delegate
             {
                 Decorator d = new Decorator();
-                Control c = new Control();
+                UiElement c = new UiElement();
                 d.Child = c;
 
                 QUnit.ok(d.Child == c, "child should be the control");
-                QUnit.ok(c.GetParent() == d, "parent should be the decorator");
+                QUnit.ok(c.Parent == d, "parent should be the decorator");
             });
         
             QUnit.test("Reset Decorator.Child clears child's parent", delegate
             {
                 Decorator d = new Decorator();
-                Control c = new Control();
+                UiElement c = new UiElement();
                 d.Child = c;
 
                 d.Child = null;
 
                 QUnit.ok(d.Child == null, "child should be null");
-                QUnit.ok(c.GetParent() == null, "parent should be null");
+                QUnit.ok(c.Parent == null, "parent should be null");
             });
         }
     }

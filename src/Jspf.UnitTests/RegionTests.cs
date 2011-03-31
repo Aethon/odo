@@ -21,14 +21,14 @@ namespace Jspf.UnitTests
 
             QUnit.test("Region.GetRegion succeeds with unparented control", delegate
             {
-                Control c = new Control();
+                UiElement c = new UiElement();
                 QUnit.equals(Region.GetRegion(c), null, "should return null");
             });
 
             QUnit.test("Region.GetRegion succeeds with parented control", delegate
             {
                 Region r = new Region();
-                Control c = new Control();
+                UiElement c = new UiElement();
                 r.Child = c;
 
                 QUnit.ok(Region.GetRegion(c) == r, "should return the region");
@@ -38,7 +38,7 @@ namespace Jspf.UnitTests
             {
                 Region r = new Region();
                 Decorator d = new Decorator();
-                Control c = new Control();
+                UiElement c = new UiElement();
                 d.Child = c;
                 r.Child = d;
 

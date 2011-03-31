@@ -65,9 +65,9 @@ namespace Jspf
             }    
         }
 
-        public override void Arrange(AxisArrangement horizontal, AxisArrangement vertical, Element hostElement)
+        public override void Arrange(AxisArrangement x, AxisArrangement y, Element hostElement)
         {
-            base.Arrange(horizontal, vertical, hostElement);
+            base.Arrange(x, y, hostElement);
 
             if (_dom == null)
             {
@@ -78,15 +78,15 @@ namespace Jspf
                 _far = jQuery.FromHtml("<div class='ui-scroll-down-button'></div>").AppendTo(_dom).MouseDown(LineFar);
             }
 
-            int buttonLength = (vertical.Length > 2*horizontal.Length) ? horizontal.Length : (int)Math.Floor(vertical.Length/2);
-            int trackHeight = vertical.Length - 2*buttonLength;
+            int buttonLength = (y.Length > 2*x.Length) ? x.Length : (int)Math.Floor(y.Length/2);
+            int trackHeight = y.Length - 2*buttonLength;
 
             _minThumbLength = Math.Min(buttonLength, trackHeight);
-            _dom.CSS("width", horizontal.Length + "px").CSS("height", vertical.Length + "px").CSS("top", vertical.Position + "px").CSS("left", horizontal.Position + "px");
-            _near.CSS("width", horizontal.Length + "px").CSS("height", buttonLength + "px");
-            _far.CSS("width", horizontal.Length + "px").CSS("height", buttonLength + "px");
-            _track.CSS("width", horizontal.Length + "px").CSS("height", trackHeight + "px");
-            _thumb.CSS("width", horizontal.Length + "px");
+            _dom.CSS("width", x.Length + "px").CSS("height", y.Length + "px").CSS("top", y.Position + "px").CSS("left", x.Position + "px");
+            _near.CSS("width", x.Length + "px").CSS("height", buttonLength + "px");
+            _far.CSS("width", x.Length + "px").CSS("height", buttonLength + "px");
+            _track.CSS("width", x.Length + "px").CSS("height", trackHeight + "px");
+            _thumb.CSS("width", x.Length + "px");
             
             ScrollableAxisChanged();
         }

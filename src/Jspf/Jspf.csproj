@@ -52,16 +52,26 @@
     <Compile Include="Axis.cs" />
     <Compile Include="AxisAlignment.cs" />
     <Compile Include="AxisArrangement.cs" />
+    <Compile Include="Control.cs" />
+    <Compile Include="Imports.cs" />
+    <Compile Include="INotifyPropertyChanged.cs" />
+    <Compile Include="ItemsControl.cs" />
+    <Compile Include="ItemsSelectorControl.cs" />
+    <Compile Include="TableItem.cs" />
+    <Compile Include="TableItemContainerGenerator.cs" />
+    <Compile Include="SortedSetItemContainerGenerator.cs" />
+    <Compile Include="ColumnTemplate.cs" />
     <Compile Include="Constants.cs" />
-    <Compile Include="Container.cs" />
-    <Compile Include="jQueryExtras.cs" />
+    <Compile Include="ISortedSet.cs" />
     <Compile Include="ScrollBar.cs" />
+    <Compile Include="SortedSet.cs" />
+    <Compile Include="Table.cs" />
     <Compile Include="TempBridgeItems.cs" />
-    <Compile Include="ValueSubject.cs" />
+    <Compile Include="Util.cs" />
     <Compile Include="VirtualStackPanel.cs" />
     <Compile Include="ListBox.cs" />
     <Compile Include="Decorator.cs" />
-    <Compile Include="DomControl.cs" />
+    <Compile Include="DomUiElement.cs" />
     <Compile Include="Rect.cs" />
     <Compile Include="Region.cs" />
     <Compile Include="Size.cs" />
@@ -69,7 +79,7 @@
     <Content Include="Properties\Jspf.ruleset" />
     <Content Include="Properties\Jspf.script" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Control.cs" />
+    <Compile Include="UiElement.cs" />
   </ItemGroup>
   <Import Project="$(ProgramFiles)\ScriptSharp\v1.0\ScriptSharp.targets" />
 </Project>

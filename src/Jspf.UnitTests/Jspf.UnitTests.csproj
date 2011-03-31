@@ -49,6 +49,8 @@
     <Reference Include="Script.Web" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="UtilTests.cs" />
+    <Compile Include="SortedSetTests.cs" />
     <Compile Include="RegionTests.cs" />
     <Compile Include="DecoratorTests.cs" />
     <Compile Include="LayoutTests.cs" />

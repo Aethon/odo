@@ -37,5 +37,15 @@ namespace QUnit4SS
         public static void equals(object value, object expected, string message)
         {
         }
+
+        [ScriptAlias("raises")]
+        public static void raises(Action test)
+        {
+        }
+
+        [ScriptAlias("raises")]
+        public static void raises(Action test, string message)
+        {
+        }
     }
 }

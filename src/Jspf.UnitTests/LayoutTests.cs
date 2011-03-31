@@ -16,13 +16,13 @@ namespace Jspf.UnitTests
 
             QUnit.test("create Control succeeds", delegate 
             {
-                Control c = new Control();
+                UiElement c = new UiElement();
             });
 
             QUnit.test("Control.GetParent() succeeds and is null", delegate
             {
-                Control c = new Control();
-                QUnit.ok(c.GetParent() == null, "should be null");
+                UiElement c = new UiElement();
+                QUnit.ok(c.Parent == null, "should be null");
             });
 
             QUnit.module("Region layout tests");
@@ -46,11 +46,11 @@ namespace Jspf.UnitTests
                 Region r = new Region();
                 r.Host = host[0];
 
-                Control c = new Control();
-                c.Horizontal.Length = 20;
-                c.Vertical.Length = 20;
-                c.Horizontal.Alignment = AxisAlignment.Near;
-                c.Vertical.Alignment = AxisAlignment.Near;
+                UiElement c = new UiElement();
+                c.XAxis.Length = 20;
+                c.YAxis.Length = 20;
+                c.XAxis.Alignment = AxisAlignment.Near;
+                c.YAxis.Alignment = AxisAlignment.Near;
 
                 r.Child = c;
 
@@ -58,10 +58,10 @@ namespace Jspf.UnitTests
 
                 QUnit.equals(c.MeasuredSize.Width, 20);
                 QUnit.equals(c.MeasuredSize.Height, 20);
-                QUnit.equals(c.VerticalArrangement.Length, 20);
-                QUnit.equals(c.HorizontalArrangement.Length, 20);
-                QUnit.equals(c.VerticalArrangement.Position, 0);
-                QUnit.equals(c.HorizontalArrangement.Position, 0);
+                QUnit.equals(c.YArrangement.Length, 20);
+                QUnit.equals(c.XArrangement.Length, 20);
+                QUnit.equals(c.YArrangement.Position, 0);
+                QUnit.equals(c.XArrangement.Position, 0);
             });
 
             QUnit.test("Region.layOut clips width", delegate
@@ -72,18 +72,18 @@ namespace Jspf.UnitTests
                 Region r = new Region();
                 r.Host = host[0];
 
-                Control c = new Control();
-                c.Horizontal.Length = 30;
-                c.Vertical.Length = 10;
-                c.Horizontal.Alignment = AxisAlignment.Near;
-                c.Vertical.Alignment = AxisAlignment.Near;
+                UiElement c = new UiElement();
+                c.XAxis.Length = 30;
+                c.YAxis.Length = 10;
+                c.XAxis.Alignment = AxisAlignment.Near;
+                c.YAxis.Alignment = AxisAlignment.Near;
 
                 r.Child = c;
 
                 r.LayOut();
 
                 QUnit.equals(c.MeasuredSize.Width, 30);
-                QUnit.equals(c.HorizontalArrangement.Length, 20);
+                QUnit.equals(c.XArrangement.Length, 20);
             });
 
             QUnit.test("Region.layOut does not clip minWidth", delegate
@@ -94,19 +94,19 @@ namespace Jspf.UnitTests
                 Region r = new Region();
                 r.Host = host[0];
 
-                Control c = new Control();
-                c.Horizontal.Length = 30;
-                c.Horizontal.MinLength = 25;
-                c.Vertical.Length = 10;
-                c.Horizontal.Alignment = AxisAlignment.Near;
-                c.Vertical.Alignment = AxisAlignment.Near;
+                UiElement c = new UiElement();
+                c.XAxis.Length = 30;
+                c.XAxis.MinLength = 25;
+                c.YAxis.Length = 10;
+                c.XAxis.Alignment = AxisAlignment.Near;
+                c.YAxis.Alignment = AxisAlignment.Near;
 
                 r.Child = c;
 
                 r.LayOut();
 
                 QUnit.equals(c.MeasuredSize.Width, 30);
-                QUnit.equals(c.HorizontalArrangement.Length, 25);
+                QUnit.equals(c.XArrangement.Length, 25);
             });
 
             QUnit.test("Region.layOut stretches width", delegate
@@ -117,18 +117,18 @@ namespace Jspf.UnitTests
                 Region r = new Region();
                 r.Host = host[0];
 
-                Control c = new Control();
-                c.Horizontal.Length = 10;
-                c.Vertical.Length = 10;
-                c.Horizontal.Alignment = AxisAlignment.Stretch;
-                c.Vertical.Alignment = AxisAlignment.Near;
+                UiElement c = new UiElement();
+                c.XAxis.Length = 10;
+                c.YAxis.Length = 10;
+                c.XAxis.Alignment = AxisAlignment.Stretch;
+                c.YAxis.Alignment = AxisAlignment.Near;
 
                 r.Child = c;
 
                 r.LayOut();
 
                 QUnit.equals(c.MeasuredSize.Width, 10);
-                QUnit.equals(c.HorizontalArrangement.Length, 20);
+                QUnit.equals(c.XArrangement.Length, 20);
             });
 
             QUnit.test("Region.layOut stretches width, respects maxWidth", delegate
@@ -139,19 +139,19 @@ namespace Jspf.UnitTests
                 Region r = new Region();
                 r.Host = host[0];
 
-                Control c = new Control();
-                c.Horizontal.Length = 10;
-                c.Horizontal.MaxLength = 15;
-                c.Vertical.Length = 10;
-                c.Horizontal.Alignment = AxisAlignment.Stretch;
-                c.Vertical.Alignment = AxisAlignment.Near;
+                UiElement c = new UiElement();
+                c.XAxis.Length = 10;
+                c.XAxis.MaxLength = 15;
+                c.YAxis.Length = 10;
+                c.XAxis.Alignment = AxisAlignment.Stretch;
+                c.YAxis.Alignment = AxisAlignment.Near;
 
                 r.Child = c;
 
                 r.LayOut();
 
                 QUnit.equals(c.MeasuredSize.Width, 10);
-                QUnit.equals(c.HorizontalArrangement.Length, 15);
+                QUnit.equals(c.XArrangement.Length, 15);
             });
 
             QUnit.test("Region.layOut clips height", delegate
@@ -162,18 +162,18 @@ namespace Jspf.UnitTests
                 Region r = new Region();
                 r.Host = host[0];
 
-                Control c = new Control();
-                c.Horizontal.Length = 10;
-                c.Vertical.Length = 30;
-                c.Horizontal.Alignment = AxisAlignment.Near;
-                c.Vertical.Alignment = AxisAlignment.Near;
+                UiElement c = new UiElement();
+                c.XAxis.Length = 10;
+                c.YAxis.Length = 30;
+                c.XAxis.Alignment = AxisAlignment.Near;
+                c.YAxis.Alignment = AxisAlignment.Near;
 
                 r.Child = c;
 
                 r.LayOut();
 
                 QUnit.equals(c.MeasuredSize.Height, 30);
-                QUnit.equals(c.VerticalArrangement.Length, 20);
+                QUnit.equals(c.YArrangement.Length, 20);
             });
 
             QUnit.test("Region.layOut does not clip minMinHeight", delegate
@@ -184,19 +184,19 @@ namespace Jspf.UnitTests
                 Region r = new Region();
                 r.Host = host[0];
 
-                Control c = new Control();
-                c.Vertical.Length = 30;
-                c.Vertical.MinLength = 25;
-                c.Horizontal.Length = 10;
-                c.Horizontal.Alignment = AxisAlignment.Near;
-                c.Vertical.Alignment = AxisAlignment.Near;
+                UiElement c = new UiElement();
+                c.YAxis.Length = 30;
+                c.YAxis.MinLength = 25;
+                c.XAxis.Length = 10;
+                c.XAxis.Alignment = AxisAlignment.Near;
+                c.YAxis.Alignment = AxisAlignment.Near;
 
                 r.Child = c;
 
                 r.LayOut();
 
                 QUnit.equals(c.MeasuredSize.Height, 30);
-                QUnit.equals(c.VerticalArrangement.Length, 25);
+                QUnit.equals(c.YArrangement.Length, 25);
             });
 
             QUnit.test("Region.layOut stretches height", delegate
@@ -207,18 +207,18 @@ namespace Jspf.UnitTests
                 Region r = new Region();
                 r.Host = host[0];
 
-                Control c = new Control();
-                c.Horizontal.Length = 10;
-                c.Vertical.Length = 10;
-                c.Vertical.Alignment = AxisAlignment.Stretch;
-                c.Horizontal.Alignment = AxisAlignment.Near;
+                UiElement c = new UiElement();
+                c.XAxis.Length = 10;
+                c.YAxis.Length = 10;
+                c.YAxis.Alignment = AxisAlignment.Stretch;
+                c.XAxis.Alignment = AxisAlignment.Near;
 
                 r.Child = c;
 
                 r.LayOut();
 
                 QUnit.equals(c.MeasuredSize.Height, 10);
-                QUnit.equals(c.VerticalArrangement.Length, 20);
+                QUnit.equals(c.YArrangement.Length, 20);
             });
 
             QUnit.test("Region.layOut stretches width, respects maxWidth", delegate
@@ -229,19 +229,19 @@ namespace Jspf.UnitTests
                 Region r = new Region();
                 r.Host = host[0];
 
-                Control c = new Control();
-                c.Vertical.Length = 10;
-                c.Vertical.MaxLength = 15;
-                c.Horizontal.Length = 10;
-                c.Vertical.Alignment = AxisAlignment.Stretch;
-                c.Horizontal.Alignment = AxisAlignment.Near;
+                UiElement c = new UiElement();
+                c.YAxis.Length = 10;
+                c.YAxis.MaxLength = 15;
+                c.XAxis.Length = 10;
+                c.YAxis.Alignment = AxisAlignment.Stretch;
+                c.XAxis.Alignment = AxisAlignment.Near;
 
                 r.Child = c;
 
                 r.LayOut();
 
                 QUnit.equals(c.MeasuredSize.Height, 10);
-                QUnit.equals(c.VerticalArrangement.Length, 15);
+                QUnit.equals(c.YArrangement.Length, 15);
             });
         }
     }

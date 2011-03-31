@@ -104,7 +104,7 @@ namespace Jspf
     }
 #endif
 
-    public class VirtualStackPanel : Control, IScrollableAxis
+    public class VirtualStackPanel : UiElement, IScrollableAxis
     {
         public IItemContainerGenerator ItemContainerGenerator
         {
@@ -129,12 +129,12 @@ namespace Jspf
         }
         private int _fixedItemHeight = 15;
 
-        // this is the index the element that is desired to be first in the visible area
+        // index of the element that is desired to be first in the visible area
         private int _desiredFirstItem = 0;
         
         // these are the indexes of the first and last visible items
         private int _firstItem = -1;
-        private Control _firstItemContainer = null;
+        private UiElement _firstItemContainer = null;
         private int _lastItem = -1;
 
         // number of whole items displayed at a time
@@ -228,16 +228,16 @@ namespace Jspf
                         if (_realizedItems[i] == null)
                         {
                             changed = true;
-                            Control item = _itemContainerGenerator.GenerateContainer(i);
+                            UiElement item = _itemContainerGenerator.GenerateContainer(i);
                             _realizedItems[i] = item;
-                            item.SetParent(this);
+                            item.Parent = this;
 
                             item.Measure(new Size(layoutWidth, _fixedItemHeight));
 
-                            AxisArrangement v = ArrangeAxis(item.Vertical, item.MeasuredSize.Height, _fixedItemHeight);
+                            AxisArrangement v = ArrangeAxis(item.YAxis, item.MeasuredSize.Height, _fixedItemHeight);
                             v.Position += i * _fixedItemHeight;
  
-                            item.Arrange(ArrangeAxis(item.Horizontal, item.MeasuredSize.Width, _content.GetInnerWidth()),
+                            item.Arrange(ArrangeAxis(item.XAxis, item.MeasuredSize.Width, _content.GetInnerWidth()),
                                 v, _content[0]);
                         }
                     }
@@ -278,18 +278,18 @@ namespace Jspf
 
         private void ReleaseContainer(int index)
         {
-            Control loser = (Control)_realizedItems[index];
+            UiElement loser = (UiElement)_realizedItems[index];
             if (loser != null)
             {
                 _realizedItems[index] = null;
-                loser.SetParent(null);
+                loser.Parent = null;
                 _itemContainerGenerator.ReleaseContainer(loser);
             }
         }
 
-        public override void Arrange(AxisArrangement horizontal, AxisArrangement vertical, Element hostElement)
+        public override void Arrange(AxisArrangement x, AxisArrangement y, Element hostElement)
         {
-            base.Arrange(horizontal, vertical, hostElement);
+            base.Arrange(x, y, hostElement);
 
             int scrollbarWidth = 18; // TODO: from scrollbar?
 
@@ -298,7 +298,6 @@ namespace Jspf
                 _scroller = jQuery.FromHtml(
                     "<div style='overflow: hidden; -khtml-user-select: none; -moz-user-select: none; position: absolute'></div>")
                     .AppendTo(hostElement);
-                // TODO: somehow _scroller[0].onselectstart = delegate () { return false; }; // IE way of preventing text selection
 
                 _content = jQuery.FromHtml("<div style='overflow: hidden; -khtml-user-select: none; -moz-user-select: none; position: absolute'></div>").AppendTo(_scroller);
 
@@ -307,17 +306,17 @@ namespace Jspf
                 _scrollbar.InputSource = _scroller[0];
             }
 
-            _content.Width(horizontal.Length).Height(GetAvailableItemCount() * _fixedItemHeight);
-            _scroller.Width(horizontal.Length).Height(vertical.Length)
-                .CSS("top", vertical.Position + "px").CSS("left", horizontal.Position + "px");
+            _content.Width(x.Length).Height(GetAvailableItemCount() * _fixedItemHeight);
+            _scroller.Width(x.Length).Height(y.Length)
+                .CSS("top", y.Position + "px").CSS("left", x.Position + "px");
 
             _viewportLines = Math.Floor(_scroller.GetInnerHeight() / (double)_fixedItemHeight);
 
-            AxisArrangement h = horizontal.Clone();
+            AxisArrangement h = x.Clone();
             h.Position = h.Position + h.Length - scrollbarWidth;
             h.Length = scrollbarWidth;
 
-            _scrollbar.Arrange(h, vertical, _scroller[0]);
+            _scrollbar.Arrange(h, y, _scroller[0]);
 
             Synchronize(true);
         }

@@ -8,11 +8,11 @@ namespace Jspf
     {
         public Element Host;
 
-        public static Region GetRegion(Control descendant)
+        public static Region GetRegion(UiElement descendant)
         {
             while (descendant != null && !(descendant is Region))
             {
-                descendant = descendant.GetParent();
+                descendant = descendant.Parent;
             }
             return (Region)descendant;
         }
@@ -39,8 +39,8 @@ namespace Jspf
 
             if (Child != null) {
                 Child.Measure(c);
-                AxisArrangement xaxis = ArrangeAxis(Child.Horizontal, Child.MeasuredSize.Width, c.Width);
-                AxisArrangement yaxis = ArrangeAxis(Child.Vertical, Child.MeasuredSize.Height, c.Height);
+                AxisArrangement xaxis = ArrangeAxis(Child.XAxis, Child.MeasuredSize.Width, c.Width);
+                AxisArrangement yaxis = ArrangeAxis(Child.YAxis, Child.MeasuredSize.Height, c.Height);
                 Child.Arrange(xaxis, yaxis, Host);
             }
         }
@@ -51,7 +51,7 @@ namespace Jspf
             MeasuredSize = size.Clone();
         }
 
-        public override void Arrange(AxisArrangement horizontal, AxisArrangement vertical, Element hostElement)
+        public override void Arrange(AxisArrangement x, AxisArrangement y, Element hostElement)
         {
             // do nothing; this control has no physical representation.
         }

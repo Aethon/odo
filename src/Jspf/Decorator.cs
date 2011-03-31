@@ -6,24 +6,30 @@ using System.Collections;
 
 namespace Jspf
 {
-    public class Decorator : Control
+    public class Decorator : UiElement
     {
-        public Control Child
+        #region Heirarchy
+
+        public UiElement Child
         {
             get { return _child; }   
             set
             {
                 if (_child != null)
                 {
-                    _child.SetParent(null);
+                    _child.Parent = null;
                 }
                 _child = value;
                 if (_child != null)
                 {
-                    _child.SetParent(this);
+                    _child.Parent = this;
                 }
+                InvalidateMeasure();
+                OnPropertyChanged("Child");
             }
         }
-        private Control _child;
+        private UiElement _child;
+
+        #endregion
     }
 }

@@ -128,7 +128,6 @@
     <Content Include="Scripts\Resources\DivaSelectorTemplate.htm" />
     <Content Include="Scripts\Resources\FilteredReverseDivaSelectorTemplate.htm" />
     <EmbeddedResource Include="Scripts\Source\jspf-scrolling-layout.js" />
-    <EmbeddedResource Include="Scripts\Source\odorx-listbox.js" />
     <EmbeddedResource Include="Scripts\Source\Group.js" />
     <EmbeddedResource Include="Scripts\Source\jq-layOut.js" />
     <EmbeddedResource Include="Scripts\Source\Items.js" />

@@ -10,7 +10,6 @@
 ../source/ui-dropbutton.js
 ../source/ui-expert-textbox.js
 ../source/ui-filterbox.js
-../source/odorx-listbox.js
 ../source/ui-listbox.js
 ../source/ui-popup.js
 ../source/region.js
