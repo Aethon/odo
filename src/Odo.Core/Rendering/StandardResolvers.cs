@@ -6,6 +6,7 @@ using System.Reflection;
 using System.Text;
 using System.Threading;
 using iSynaptic.Commons.Data;
+using Odo.Core.Design;
 
 namespace Odo.Core.Rendering
 {
@@ -15,6 +16,7 @@ namespace Odo.Core.Rendering
         {
             // TODO: by reflection
             yield return ResolveStringCompare;
+            yield return ResolveWellKnownHelpersCompareForIncrementalSearch;
             yield return ResolveBindingGetValue;
             yield return ResolveMetadataDeclarationFor;
         }
@@ -28,6 +30,22 @@ namespace Odo.Core.Rendering
         {
             replacement = null;
             if (expression.Method != StringCompareMethodInfo)
+                return ExpressionAction.None;
+
+            return ExpressionAction.Retain;
+        }
+
+        #endregion
+
+        #region WellKnownHelpers.CompareForIncrementalSearch
+
+        public static readonly MethodInfo ResolveWellKnownHelpersCompareForIncrementalSearchMethodInfo = typeof(WellKnownHelpers).GetMethod("CompareForIncrementalSearch", new[] { typeof(string), typeof(string) });
+
+        public static ExpressionAction ResolveWellKnownHelpersCompareForIncrementalSearch(MethodCallExpression expression, IRequirementsBuilder requirementsBuiler,
+            out Expression replacement)
+        {
+            replacement = null;
+            if (expression.Method != ResolveWellKnownHelpersCompareForIncrementalSearchMethodInfo)
                 return ExpressionAction.None;
 
             return ExpressionAction.Retain;

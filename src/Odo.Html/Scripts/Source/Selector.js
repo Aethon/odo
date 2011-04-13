@@ -237,7 +237,8 @@ var createSelectorDomOptions = {
     availableTemplate: function () { return ""; },
     compare: function (l, r) {
         return getOdoId(l) - getOdoId(r);
-    }
+    },
+    incrementalSearchFn: null
     //captureId
     //captureKey
     //tip
@@ -265,7 +266,8 @@ odo.html.createSelectorDom = function (viewModel, options) {
         comparefn: options.compare,
         template: options.selectedTemplate || options.availableTemplate,
         dblClickItem: viewModel.unselectFocused,
-        tip: options.tip
+        tip: options.tip,
+        incrementalSearchFn: options.incrementalSearchFn
     }).layOut(function () {
         this.data("listbox").layOut();
     });
@@ -274,7 +276,8 @@ odo.html.createSelectorDom = function (viewModel, options) {
         comparefn: options.compare,
         template: options.availableTemplate,
         dblClickItem: viewModel.selectFocused,
-        tip: options.tip
+        tip: options.tip,
+        incrementalSearchFn: options.incrementalSearchFn
     }).layOut(function () {
         this.data("listbox").layOut();
     });
@@ -349,7 +352,8 @@ odo.html.createListComposerDom = function (viewModel, options) {
         selection: viewModel.focusedSelectedItems,
         comparefn: viewModel.selectedSort,
         template: options.selectedTemplate || options.availableTemplate,
-        tip: options.tip
+        tip: options.tip,
+        incrementalSearchFn: options.incrementalSearchFn
     }).layOut(function () {
         this.data("listbox").layOut();
     }).data("listbox");
@@ -359,7 +363,8 @@ odo.html.createListComposerDom = function (viewModel, options) {
         comparefn: options.compare,
         template: options.availableTemplate,
         dblClickItem: viewModel.selectFocused,
-        tip: options.tip
+        tip: options.tip,
+        incrementalSearchFn: options.incrementalSearchFn
     }).layOut(function () {
         this.data("listbox").layOut();
     });
@@ -409,4 +414,13 @@ odo.html.createListComposerDom = function (viewModel, options) {
         }
     }
     return dom; 
+};
+
+odo.CompareForIncrementalSearch = function (search, candidate) {
+    var s = search.toLowerCase();
+    var c = candidate.toLowerCase();
+    var comp = s.localeCompare(c);
+    if (comp >= 0)
+        return comp;
+    return (c.indexOf(s) == 0) ? 0 : -1;
 };

@@ -75,6 +75,7 @@
     <Compile Include="Design\Selector.cs" />
     <Compile Include="Design\Style.cs" />
     <Compile Include="Design\TextExtensions.cs" />
+    <Compile Include="Design\WellKnownHelpers.cs" />
     <Compile Include="ExpressionExtensions.cs" />
     <Compile Include="JavascriptHelp.cs" />
     <Compile Include="Rendering\CollectionNode.cs" />

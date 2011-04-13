@@ -28,6 +28,7 @@ function (svm) {
 			<# if (Data.Tip != null) { #>, tip: <#= Data.Tip #> <# } #>
 			<# if (Data.CaptureId != null) { #>, captureId: '<#= Data.CaptureId #>' <# } #>
 			<# if (Data.CaptureKeyScript != null) { #>, captureKey: <#= Data.CaptureKeyScript #> <# } #>
+			<# if (Data.IncrementalSearchScript != null) { #>, incrementalSearchFn: <#= Data.IncrementalSearchScript #> <# } #>
 	} );
 	svm._selectedReportFields = vm.selectedItems;
 	<# if (Data.CategoryFilter) { #>

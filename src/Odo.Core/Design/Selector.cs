@@ -25,6 +25,7 @@ namespace Odo.Core.Design
         public Expression SelectedItems { get; protected set; }
         public Expression Symbol { get; protected set; }
         public Expression Tip { get; protected set; }
+        public Expression IncrementalSearchExpression { get; protected set; }
 
         public string Label { get; private set; }
 
@@ -62,6 +63,8 @@ namespace Odo.Core.Design
                 links.Add(Symbol);
             if (Tip != null)
                 links.Add(Tip);
+            if (IncrementalSearchExpression != null)
+                links.Add(IncrementalSearchExpression);
 
             if (SelectedTemplate != null)
                 links.AddRange(SelectedTemplate.Tree.GetEffectiveLinks());
@@ -78,6 +81,7 @@ namespace Odo.Core.Design
     public class Selector<T, TCat> : Selector
     {
         public new Expression<Func<T, T, int>> ComparisonExpression { get { return (Expression<Func<T, T, int>>)base.ComparisonExpression; } }
+        public new Expression<Func<string, T, int>> IncrementalSearchExpression { get { return (Expression<Func<string, T, int>>)base.IncrementalSearchExpression; } }
 
         public Selector(Binding<Select<T, TCat>> context,
             string name,
@@ -88,12 +92,14 @@ namespace Odo.Core.Design
             DesignTemplate availableTemplate,
             DesignTemplate selectedTemplate,
             SelectorMode mode,
-            DesignComponent filter)
+            DesignComponent filter,
+            Expression<Func<string, T, int>> incrementalSearch)
             : base(context, name, style, mode, filter)
         {
             base.AvailableTemplate = Guard.NotNull(availableTemplate, "availableTemplate");
             base.SelectedTemplate = selectedTemplate;
             base.ComparisonExpression = comparison;
+            base.IncrementalSearchExpression = incrementalSearch;
             base.AllItems = context.Compose(s => s.From.GetValue(s)).BindingLambda;
             base.SelectedItems = context.Compose(s => s.Current.GetValue(s)).BindingLambda;
             base.Symbol = symbol;

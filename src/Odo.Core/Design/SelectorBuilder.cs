@@ -10,6 +10,7 @@ namespace Odo.Core.Design
         protected DesignTemplate CurrentAvailableTemplate;
         protected DesignTemplate CurrentSelectedTemplate;
         protected Expression<Func<T, T, int>> CurrentComparison;
+        protected Expression<Func<string, T, int>> CurrentIncrementalSearch;
         protected Expression<Func<T, string>> CurrentSymbol;
         protected Expression<Func<T, string>> CurrentTip;
         protected SelectorMode CurrentMode;
@@ -33,6 +34,11 @@ namespace Odo.Core.Design
         public SelectorBuilder<TParentContext, T, TCat> Comparison(Expression<Func<T, T, int>> comparison)
         {
             return new SelectorBuilder<TParentContext, T, TCat>(this) { CurrentComparison = comparison };
+        }
+
+        public SelectorBuilder<TParentContext, T, TCat> IncrementalSearch(Expression<Func<string, T, int>> comparison)
+        {
+            return new SelectorBuilder<TParentContext, T, TCat>(this) { CurrentIncrementalSearch = comparison };
         }
 
         public SelectorBuilder<TParentContext, T, TCat> Symbol(Expression<Func<T, string>> symbol)
@@ -88,7 +94,8 @@ namespace Odo.Core.Design
                                    source.CurrentAvailableTemplate,
                                    source.CurrentSelectedTemplate,
                                    source.CurrentMode,
-                                   source.CurrentFilter);
+                                   source.CurrentFilter,
+                                   source.CurrentIncrementalSearch);
         }
     }
 }

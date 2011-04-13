@@ -24,6 +24,7 @@ namespace Odo.Html.Rendering
             // TODO: by reflection
             yield return RenderStringCompare;
             yield return RenderBindingGetValue;
+            yield return RenderWellKnownHelpersCompareForIncrementalSearch;
             yield return IsMetadataDeclarationForMethod;
         }
 
@@ -67,6 +68,28 @@ namespace Odo.Html.Rendering
                 return RenderAction.Fail;
 
             renderedExpression = string.Format("({0})({1})", obj, arg);
+            return RenderAction.Rendered;
+        }
+
+        #endregion
+
+        #region WellKnownHelpers.CompareForIncrementalSearch
+
+        public static RenderAction RenderWellKnownHelpersCompareForIncrementalSearch(Expression expression, RenderExpression render, out string renderedExpression)
+        {
+            renderedExpression = null;
+            var exp = expression as MethodCallExpression;
+
+            if (exp == null || exp.Method != StandardResolvers.ResolveWellKnownHelpersCompareForIncrementalSearchMethodInfo)
+                return RenderAction.None;
+
+            string search;
+            string candidate;
+            if (RenderAction.Fail == render(exp.Arguments[0], render, out search) ||
+                RenderAction.Fail == render(exp.Arguments[1], render, out candidate))
+                return RenderAction.Fail;
+
+            renderedExpression = string.Format("odo.CompareForIncrementalSearch({0},{1})", search, candidate);
             return RenderAction.Rendered;
         }
 

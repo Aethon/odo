@@ -4,14 +4,19 @@ $.widget("ui.listbox", {
         selection: null,
         comparefn: null,
         template: null,
+        incrementalSearchFn: null,
         tip: null // this is TEMPORARY
     },
 
     _create: function () {
         var self = this;
 
+        this._incrementalSearchFn = this.options.incrementalSearchFn;
         this._sourceObs = this.options.source || ko.observableArray([]);
         this._selectionObs = this.options.selection || ko.observableArray([]);
+
+        this._lastKeypressTime = 0;
+        this._incrementalSearchInput = '';
 
         function _handleKeyDown(event) {
             if (self.options.disabled || self.element.attr("readonly")) {
@@ -51,6 +56,57 @@ $.widget("ui.listbox", {
                         return false;
                     }
                     break;
+            }
+            if (!(event.ctrlKey || event.altKey) && self._incrementalSearchFn) {
+                var char = String.fromCharCode(event.keyCode);
+                var keypressTime = new Date().getTime();
+                if (self._incrementalSearchInput.length // previous search is in effect
+                    && char !== self._incrementalSearchInput // 
+                    && (keypressTime - self._lastKeypressTime < 1000)) {
+                    self._incrementalSearchInput = self._incrementalSearchInput + char;
+                } else {
+                    self._incrementalSearchInput = char;
+                }
+                if (self._incrementalSearchInput.length) {
+                    self._lastKeypressTime = keypressTime;
+
+                    var startFrom = self._selectionFocus || self._selectionBase;
+                    var startIndex = 0;
+                    if (startFrom) {
+                        startIndex = self._generator.getIndexForContainer(self._generator.getContainerForItem(startFrom));
+                        if (self._incrementalSearchInput.length == 1) {
+                            startIndex = startIndex + 1;
+                        }
+                    }
+                    var src = self._sourceObs();
+                    var foundIndex = -1;
+                    for (var index = startIndex; index < src.length; index++) {
+                        var comp = self._incrementalSearchFn(self._incrementalSearchInput, src[index]);
+                        if (comp === 0) {
+                            foundIndex = index;
+                            break;
+                        } else if (comp < 0) {
+                            // passed all possibilities
+                            break;
+                        }
+                    }
+                    if (foundIndex < 0) {
+                        for (var index = 0; index < startIndex; index++) {
+                            var comp = self._incrementalSearchFn(self._incrementalSearchInput, src[index]);
+                            if (comp === 0) {
+                                foundIndex = index;
+                                break;
+                            } else if (comp < 0) {
+                                // passed all possibilities
+                                break;
+                            }
+                        }
+                    }
+                    if (foundIndex >= 0) {
+                        self.select(src[foundIndex], false, false);
+                        self._stackpanel.scrollIntoViewport(foundIndex);
+                    }
+                }
             }
         }
 

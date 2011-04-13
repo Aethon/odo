@@ -31,6 +31,8 @@ namespace Odo.Html.Rendering
 
         public string CaptureId;
         public string CaptureKeyScript;
+
+        public string IncrementalSearchScript;
     }
 
     internal class SelectorRenderer
@@ -51,7 +53,8 @@ namespace Odo.Html.Rendering
                                AvailableTemplateScript = (subject.AvailableTemplate == null) ? null : context.RenderTemplate(subject.AvailableTemplate.Tree),
                                SelectedTemplateScript = (subject.SelectedTemplate == null) ? null : context.RenderTemplate(subject.SelectedTemplate.Tree),
                                CaptureId = select.CaptureId,
-                               CaptureKeyScript = (select.CaptureKey == null) ? null : context.Serializer.RenderInstance(select.CaptureKey)
+                               CaptureKeyScript = (select.CaptureKey == null) ? null : context.Serializer.RenderInstance(select.CaptureKey),
+                               IncrementalSearchScript = (subject.IncrementalSearchExpression == null) ? null : context.Serializer.RenderInstance(subject.IncrementalSearchExpression)
                            };
 
             var cf = subject.Filter as CategoryFilter;

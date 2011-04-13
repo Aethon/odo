@@ -362,9 +362,30 @@ namespace Odo.Html.Rendering
             
             #line default
             #line hidden
+            this.Write("\t\t\t");
+            
+            #line 31 "C:\Projects\Odo\src\Odo.Html\Rendering\SelectorTemplate.tt"
+ if (Data.IncrementalSearchScript != null) { 
+            
+            #line default
+            #line hidden
+            this.Write(", incrementalSearchFn: ");
+            
+            #line 31 "C:\Projects\Odo\src\Odo.Html\Rendering\SelectorTemplate.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(Data.IncrementalSearchScript));
+            
+            #line default
+            #line hidden
+            this.Write(" ");
+            
+            #line 31 "C:\Projects\Odo\src\Odo.Html\Rendering\SelectorTemplate.tt"
+ } 
+            
+            #line default
+            #line hidden
             this.Write("\t} );\r\n\tsvm._selectedReportFields = vm.selectedItems;\r\n\t");
             
-            #line 33 "C:\Projects\Odo\src\Odo.Html\Rendering\SelectorTemplate.tt"
+            #line 34 "C:\Projects\Odo\src\Odo.Html\Rendering\SelectorTemplate.tt"
  if (Data.CategoryFilter) { 
             
             #line default
@@ -374,7 +395,7 @@ namespace Odo.Html.Rendering
                     "            if (code === this.Code) {\r\n\t\t\t\t\tvar sel = this;\r\n\t\t\t\t\tsetTimeout(fun" +
                     "ction() { (");
             
-            #line 39 "C:\Projects\Odo\src\Odo.Html\Rendering\SelectorTemplate.tt"
+            #line 40 "C:\Projects\Odo\src\Odo.Html\Rendering\SelectorTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(Data.Category));
             
             #line default
@@ -391,7 +412,7 @@ namespace Odo.Html.Rendering
 		$(function () { _respondToFilter(); });
 		");
             
-            #line 49 "C:\Projects\Odo\src\Odo.Html\Rendering\SelectorTemplate.tt"
+            #line 50 "C:\Projects\Odo\src\Odo.Html\Rendering\SelectorTemplate.tt"
  } 
             
             #line default
