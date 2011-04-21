@@ -70,23 +70,20 @@ $.widget("ui.listbox", {
                 if (self._incrementalSearchInput.length) {
                     self._lastKeypressTime = keypressTime;
 
+                    var src = self._sourceObs();
                     var startFrom = self._selectionFocus || self._selectionBase;
                     var startIndex = 0;
                     if (startFrom) {
-                        startIndex = self._generator.getIndexForContainer(self._generator.getContainerForItem(startFrom));
+                        startIndex = src.binarySearch(startFrom, self.options.comparefn);
                         if (self._incrementalSearchInput.length == 1) {
                             startIndex = startIndex + 1;
                         }
                     }
-                    var src = self._sourceObs();
                     var foundIndex = -1;
                     for (var index = startIndex; index < src.length; index++) {
                         var comp = self._incrementalSearchFn(self._incrementalSearchInput, src[index]);
                         if (comp === 0) {
                             foundIndex = index;
-                            break;
-                        } else if (comp < 0) {
-                            // passed all possibilities
                             break;
                         }
                     }
@@ -95,9 +92,6 @@ $.widget("ui.listbox", {
                             var comp = self._incrementalSearchFn(self._incrementalSearchInput, src[index]);
                             if (comp === 0) {
                                 foundIndex = index;
-                                break;
-                            } else if (comp < 0) {
-                                // passed all possibilities
                                 break;
                             }
                         }
@@ -158,6 +152,7 @@ $.widget("ui.listbox", {
         this._generator.set_allItems(this.options.source);
         this._generator.set_itemTemplate(template);
         this._stackpanel.set_itemContainerGenerator(this._generator);
+        this._stackpanel.set_focusElement(this.element[0]);
 
         this.element
         .addClass("ui-list ui-widget ui-corner-all")
@@ -263,8 +258,6 @@ $.widget("ui.listbox", {
                 this._stackpanel.moveToPos(to);
             }
         }
-        // reassert keyboard focus for IE
-        this.element[0].focus();
     }
 });
 

@@ -129,6 +129,13 @@ namespace Jspf
         }
         private int _fixedItemHeight = 15;
 
+        public Element FocusElement
+        {
+            get { return _focusElement; }
+            set { _focusElement = value; }
+        }
+        private Element _focusElement = null;
+
         // this is the index the element that is desired to be first in the visible area
         private int _desiredFirstItem = 0;
         
@@ -246,18 +253,30 @@ namespace Jspf
                     _content.CSS("top", (-firstRequired * _fixedItemHeight) + "px");
 
                     // remove any unnecessary elements)
+                    bool itemRemoved = false;
                     for (int i = Math.Max(_firstRealizedItem, 0); i < firstAllowed; i++)
                     {
                         ReleaseContainer(i);
+                        itemRemoved = true;
                     }
                     for (int i = lastAllowed + 1; i <= _lastRealizedItem; i++)
                     {
                         ReleaseContainer(i);
+                        itemRemoved = true;
                     }
-
                     _firstRealizedItem = Math.Min(firstRequired, Math.Max(firstAllowed, _firstRealizedItem));
                     _lastRealizedItem = Math.Max(lastRequired, Math.Min(lastAllowed, _lastRealizedItem));
-
+                    if (itemRemoved && !Script.IsNull(FocusElement))
+                    {
+                        try
+                        {
+                            FocusElement.Focus();
+                        }
+                        catch (Exception)
+                        {
+                            // nothing to do, prolly running IE
+                        }
+                    }
                 }
                 else
                 {

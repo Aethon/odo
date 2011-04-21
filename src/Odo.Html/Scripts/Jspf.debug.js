@@ -614,6 +614,8 @@ Jspf.VirtualStackPanel = function Jspf_VirtualStackPanel() {
     /// </field>
     /// <field name="_fixedItemHeight$1" type="Number" integer="true">
     /// </field>
+    /// <field name="_focusElement$1" type="Object" domElement="true">
+    /// </field>
     /// <field name="_desiredFirstItem$1" type="Number" integer="true">
     /// </field>
     /// <field name="_firstItem$1" type="Number" integer="true">
@@ -679,6 +681,18 @@ Jspf.VirtualStackPanel.prototype = {
     },
     
     _fixedItemHeight$1: 15,
+    
+    get_focusElement: function Jspf_VirtualStackPanel$get_focusElement() {
+        /// <value type="Object" domElement="true"></value>
+        return this._focusElement$1;
+    },
+    set_focusElement: function Jspf_VirtualStackPanel$set_focusElement(value) {
+        /// <value type="Object" domElement="true"></value>
+        this._focusElement$1 = value;
+        return value;
+    },
+    
+    _focusElement$1: null,
     _desiredFirstItem$1: 0,
     _firstItemContainer$1: null,
     _viewportLines$1: 0,
@@ -754,14 +768,24 @@ Jspf.VirtualStackPanel.prototype = {
                     }
                 }
                 this._content$1.css('top', (-firstRequired * this._fixedItemHeight$1) + 'px');
+                var itemRemoved = false;
                 for (var i = Math.max(this._firstRealizedItem$1, 0); i < firstAllowed; i++) {
                     this._releaseContainer$1(i);
+                    itemRemoved = true;
                 }
                 for (var i = lastAllowed + 1; i <= this._lastRealizedItem$1; i++) {
                     this._releaseContainer$1(i);
+                    itemRemoved = true;
                 }
                 this._firstRealizedItem$1 = Math.min(firstRequired, Math.max(firstAllowed, this._firstRealizedItem$1));
                 this._lastRealizedItem$1 = Math.max(lastRequired, Math.min(lastAllowed, this._lastRealizedItem$1));
+                if (itemRemoved && !ss.isNull(this.get_focusElement())) {
+                    try {
+                        this.get_focusElement().focus();
+                    }
+                    catch ($e1) {
+                    }
+                }
             }
             else {
                 this._showScrollbar$1(false);
