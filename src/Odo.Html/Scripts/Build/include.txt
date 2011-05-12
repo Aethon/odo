@@ -1,4 +1,4 @@
-../dependencies/jquery.metadata.js
+../../lib/jquery.metadata.js
 ../source/kobindings.js
 ../source/odo-prolog.js
 ../build/temp/generatedResources.js

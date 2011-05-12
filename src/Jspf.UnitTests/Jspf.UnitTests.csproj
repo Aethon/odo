@@ -44,9 +44,12 @@
     <Reference Include="mscorlib, Version=0.6.3.0, Culture=neutral, PublicKeyToken=8fc0e3af5abcb6c4, processorArchitecture=MSIL" />
     <Reference Include="Script.jQuery, Version=0.6.3.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\lib\ScriptSharp\Framework\Script.jQuery.dll</HintPath>
+      <HintPath>..\..\lib\ScriptSharp\Framework\Script.jQuery.dll</HintPath>
     </Reference>
-    <Reference Include="Script.Web" />
+    <Reference Include="Script.Web, Version=0.6.3.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\lib\ScriptSharp\Framework\Script.Web.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="UtilTests.cs" />
