@@ -5,6 +5,7 @@
 *.suo
 *.user
 *.vs10x
+*.docstates
 
 # Build results
 [Dd]ebug/
