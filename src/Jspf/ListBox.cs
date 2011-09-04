@@ -201,7 +201,7 @@ namespace Jspf
 
 
         private int _selectionFocus = 0;
-        private int _selectionBase = 0;
+        //private int _selectionBase = 0;
         private void SetSelectionFocus(int index) {
             //           if (_selectionFocus) {
             //               _selectionFocus.removeClass("ui-list-focus");
@@ -281,14 +281,15 @@ namespace Jspf
         }
         private ArrayList _selected = new ArrayList();
 
+        /*
         // use a combinator: public object UniqueSortKeySelector = null;
         public object Focus
         {
             get { return _focus; }
-            set { /* ha ha */ }
+            set { / * ha ha * / }
         }
         private object _focus;
-
+        */
 #if NO
         private jQueryObject _selectionFocus = null;
         private var _selectionBase = null;

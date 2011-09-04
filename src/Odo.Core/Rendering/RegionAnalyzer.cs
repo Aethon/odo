@@ -24,15 +24,15 @@ namespace Odo.Core.Rendering
     public class MetadataInfo
     {
         public Type Type { get; private set; }
-        public IExodataDeclaration Declaration { get; private set; }
+        public ISymbol Symbol { get; private set; }
         private MethodInfo Method { get;  set; }
         private Expression MemberExpression { get; set; }
 
         public MetadataInfo
-            (Type type, IExodataDeclaration declaration, MethodInfo method, Expression memberExpression)
+            (Type type, ISymbol declaration, MethodInfo method, Expression memberExpression)
         {
             Type = type;
-            Declaration = declaration;
+            Symbol = declaration;
             Method = method;
             MemberExpression = memberExpression;
         }
@@ -42,9 +42,9 @@ namespace Odo.Core.Rendering
             switch (Method.GetParameters().Length)
             {
                 case 1:
-                    return Method.Invoke(Declaration, new[] {subject});
+                    return Method.Invoke(Symbol, new[] {subject});
                 case 2:
-                    return Method.Invoke(Declaration, new[] {subject, MemberExpression});
+                    return Method.Invoke(Symbol, new[] {subject, MemberExpression});
                 default:
                     throw new InvalidOperationException("An unrecognized signature for MetadataInfo was found");
             }

@@ -33,7 +33,7 @@ namespace Jspf
         private int _repeatMilliseconds = 40;
 
         private bool _scrubbing = false;
-        private bool auto;
+        //private bool auto;
 
         private jQueryObject _dom;
         private jQueryObject _near;

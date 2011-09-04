@@ -6,6 +6,7 @@ using System.Web.UI;
 using iSynaptic.Commons;
 using System.Linq;
 using iSynaptic.Commons.Collections.Generic;
+using iSynaptic.Commons.Linq;
 
 // TODO: deprecate the use of WebResources
 #region odo Resources
