@@ -31,30 +31,29 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="iSynaptic.Commons, Version=0.3.1.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\lib\iSynaptic.Commons.0.3.1\lib\iSynaptic.Commons.dll</HintPath>
+    <Reference Include="iSynaptic.Commons">
+      <HintPath>..\..\lib\iSynaptic.Commons.0.4.6\lib\iSynaptic.Commons.dll</HintPath>
     </Reference>
-    <Reference Include="Microsoft.Web.Mvc">
-      <HintPath>..\..\lib\Mvc2Futures.2.0.50217.0\lib\Microsoft.Web.Mvc.dll</HintPath>
-    </Reference>
-    <Reference Include="MvcContrib, Version=2.0.95.0, Culture=neutral, processorArchitecture=MSIL">
+    <Reference Include="Microsoft.Web.Mvc, Version=3.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\lib\MvcContrib.2.0.95.0\lib\MvcContrib.dll</HintPath>
+      <HintPath>..\..\lib\Mvc3Futures.3.0.20105.0\lib\Microsoft.Web.Mvc.dll</HintPath>
     </Reference>
-    <Reference Include="MvcContrib.FluentHtml, Version=2.0.96.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\lib\MvcContrib.FluentHtml.2.0.96.0\lib\MvcContrib.FluentHtml.dll</HintPath>
+    <Reference Include="MvcContrib, Version=3.0.94.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\lib\MvcContrib.Mvc3-ci.3.0.94.0\lib\MvcContrib.dll</HintPath>
+    </Reference>
+    <Reference Include="MvcContrib.FluentHtml, Version=3.0.94.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\lib\MvcContrib.Mvc3.FluentHtml-ci.3.0.94.0\lib\MvcContrib.FluentHtml.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
-    <Reference Include="System.Transactions" />
     <Reference Include="System.Web" />
     <Reference Include="System.Web.Abstractions" />
-    <Reference Include="System.Web.Mvc, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
-    <Reference Include="System.Xml.Linq" />
-    <Reference Include="System.Data.DataSetExtensions" />
-    <Reference Include="Microsoft.CSharp" />
-    <Reference Include="System.Data" />
-    <Reference Include="System.Xml" />
+    <Reference Include="System.Web.Mvc, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\lib\ASPNETMVC\3.0\System.Web.Mvc.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AppAgent.cs" />

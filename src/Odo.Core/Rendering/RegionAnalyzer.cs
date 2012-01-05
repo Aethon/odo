@@ -10,7 +10,6 @@ using System.Reflection;
 using System.Text;
 using System.Text.RegularExpressions;
 using iSynaptic.Commons;
-using iSynaptic.Commons.Data;
 using Odo.Core.Design;
 
 namespace Odo.Core.Rendering
@@ -29,10 +28,10 @@ namespace Odo.Core.Rendering
         private Expression MemberExpression { get; set; }
 
         public MetadataInfo
-            (Type type, ISymbol declaration, MethodInfo method, Expression memberExpression)
+            (Type type, ISymbol symbol, MethodInfo method, Expression memberExpression)
         {
             Type = type;
-            Symbol = declaration;
+            Symbol = symbol;
             Method = method;
             MemberExpression = memberExpression;
         }

@@ -31,8 +31,13 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+<<<<<<< HEAD
     <Reference Include="iSynaptic.Commons, Version=0.3.1.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\lib\iSynaptic.Commons.0.3.1\lib\iSynaptic.Commons.dll</HintPath>
+=======
+    <Reference Include="iSynaptic.Commons">
+      <HintPath>..\..\lib\iSynaptic.Commons.0.4.6\lib\iSynaptic.Commons.dll</HintPath>
+>>>>>>> origin/DSS60
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
