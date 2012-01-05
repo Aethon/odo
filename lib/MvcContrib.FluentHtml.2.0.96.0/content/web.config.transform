@@ -1,9 +1,0 @@
-<configuration>
-    <system.web>
-        <pages>
-			<namespaces>
-				<add namespace="MvcContrib.FluentHtml" />
-			</namespaces>
-        </pages>
-    </system.web>
-</configuration>
