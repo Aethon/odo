@@ -5,6 +5,7 @@ using System.Linq.Expressions;
 using System.Reflection;
 using System.Text;
 using System.Threading;
+using iSynaptic.Commons;
 using iSynaptic.Commons.Data;
 using Odo.Core.Design;
 
@@ -107,13 +108,13 @@ namespace Odo.Core.Rendering
             if (expression.Object is ConstantExpression)
             {
                 var constexp = (ConstantExpression) expression.Object;
-                requirementsBuiler.NoteMetadataRequirement(new MetadataInfo(expression.Arguments[0].Type, (IExodataDeclaration)constexp.Value, expression.Method,
+                requirementsBuiler.NoteMetadataRequirement(new MetadataInfo(expression.Arguments[0].Type, (ISymbol)constexp.Value, expression.Method,
                     (expression.Arguments.Count == 2) ? expression.Arguments[1] : null));
                 return ExpressionAction.Retain;
             }
 
             // otherwise, attempt to convert the constant expression to a constant
-            var constval = (IExodataDeclaration)Expression.Lambda(expression.Object).Compile().DynamicInvoke();
+            var constval = (ISymbol)Expression.Lambda(expression.Object).Compile().DynamicInvoke();
             var objectValue = Expression.Constant(constval);
 
             replacement = Expression.Call(objectValue, expression.Method, expression.Arguments);

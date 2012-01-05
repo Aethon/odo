@@ -31,9 +31,8 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="iSynaptic.Commons, Version=0.1.0.38, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\lib\iSynaptic.Commons.0.1.0.38\lib\iSynaptic.Commons.dll</HintPath>
+    <Reference Include="iSynaptic.Commons">
+      <HintPath>..\..\lib\iSynaptic.Commons.0.4.6\lib\iSynaptic.Commons.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />

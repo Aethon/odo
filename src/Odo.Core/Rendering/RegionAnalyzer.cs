@@ -10,7 +10,6 @@ using System.Reflection;
 using System.Text;
 using System.Text.RegularExpressions;
 using iSynaptic.Commons;
-using iSynaptic.Commons.Data;
 using Odo.Core.Design;
 
 namespace Odo.Core.Rendering
@@ -24,15 +23,15 @@ namespace Odo.Core.Rendering
     public class MetadataInfo
     {
         public Type Type { get; private set; }
-        public IExodataDeclaration Declaration { get; private set; }
+        public ISymbol Symbol { get; private set; }
         private MethodInfo Method { get;  set; }
         private Expression MemberExpression { get; set; }
 
         public MetadataInfo
-            (Type type, IExodataDeclaration declaration, MethodInfo method, Expression memberExpression)
+            (Type type, ISymbol symbol, MethodInfo method, Expression memberExpression)
         {
             Type = type;
-            Declaration = declaration;
+            Symbol = symbol;
             Method = method;
             MemberExpression = memberExpression;
         }
@@ -42,9 +41,9 @@ namespace Odo.Core.Rendering
             switch (Method.GetParameters().Length)
             {
                 case 1:
-                    return Method.Invoke(Declaration, new[] {subject});
+                    return Method.Invoke(Symbol, new[] { subject });
                 case 2:
-                    return Method.Invoke(Declaration, new[] {subject, MemberExpression});
+                    return Method.Invoke(Symbol, new[] { subject, MemberExpression });
                 default:
                     throw new InvalidOperationException("An unrecognized signature for MetadataInfo was found");
             }

@@ -13,6 +13,7 @@ using iSynaptic.Commons.Collections.Generic;
 using iSynaptic.Commons.Data;
 using Odo.Core;
 using Odo.Core.Rendering;
+using iSynaptic.Commons.Linq;
 
 namespace Odo.Html.Rendering
 {
@@ -144,8 +145,8 @@ namespace Odo.Html.Rendering
 
         public string RenderInstance(object instance)
         {
-            if (instance is IExodataDeclaration)
-                return GetMetadataName((IExodataDeclaration)instance);
+            if (instance is ISymbol)
+                return GetMetadataName((ISymbol)instance);
 
             if (instance == null)
                 return "null"; 
@@ -230,11 +231,11 @@ namespace Odo.Html.Rendering
 
         protected string RenderMember(KeyValuePair<MetadataInfo, RenderNode> metadata)
         {
-            return string.Format("{0}:{1}", GetMetadataName(metadata.Key.Declaration), Render(metadata.Value));
+            return string.Format("{0}:{1}", GetMetadataName(metadata.Key.Symbol), Render(metadata.Value));
         }
 
         private int _nextMetadataName = 1;
-        private string GetMetadataName(IExodataDeclaration info)
+        private string GetMetadataName(ISymbol info)
         {
             string name;
             if (!_metadataNames.TryGetValue(info, out name))
