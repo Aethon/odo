@@ -102,6 +102,7 @@ $.widget("ui.listbox", {
                     }
                 }
             }
+            event.stopProgagation();
         }
 
         this._region = new Jspf.Region();
@@ -378,7 +379,7 @@ $.widget("ui.listbox_depr", {
                     if (typeof self.options.template === 'function') {
                         $item.html(self.options.template(r));
                     } else {
-                        $item.append($.tmpl(self.options.template, r));
+                        $item.append($($.render(r, self.options.template)));
                     }
 
                     // temp to support tooldatastufftips

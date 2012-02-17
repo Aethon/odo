@@ -397,7 +397,7 @@ $.widget("ui.odorx_listbox_depr", {
                         if (typeof self.options.template === 'function') {
                             $item.html(self.options.template(r));
                         } else if (self.options.template !== undefined) {
-                            $item.append($.tmpl(self.options.template, r));
+                            $item.append($($.render(r, self.options.template)));
                         }
 
                         // temp to support tooldatastufftips

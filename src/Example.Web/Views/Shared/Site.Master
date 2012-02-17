@@ -10,7 +10,7 @@
     <link type="text/css" href="../../Content/jquery-ui-1.8.7.custom.css" rel="stylesheet" />	
 	<script type="text/javascript" src="../../odo-dependencies/jquery-1.5.1.js"></script>
 	<script type="text/javascript" src="../../odo-dependencies/jquery-ui-1.8.10.custom.min.js"></script>
-    <script type="text/javascript" src="../../odo-dependencies/jquery.templates-beta1.debug.js"></script>
+    <script type="text/javascript" src="../../odo-dependencies/render.js"></script>
 	<script type="text/javascript" src="../../odo-dependencies/rx.js"></script>
 	<script type="text/javascript" src="../../odo-dependencies/rx.jquery.js"></script>
 	<script type="text/javascript" src="../../odo-dependencies/knockout-1.1.1.debug.js"></script>

@@ -120,7 +120,6 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Scripts\Dependencies\jquery.templates-beta1.debug.js" />
     <EmbeddedResource Include="Scripts\Jspf.debug.js" />
     <EmbeddedResource Include="Scripts\Jspf.js" />
     <EmbeddedResource Include="Scripts\mscorlib.debug.js" />

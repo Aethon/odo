@@ -251,7 +251,7 @@ odo.html.createSelectorDom = function (viewModel, options) {
 
     options = $.extend({}, createSelectorDomOptions, options || {});
 
-    var dom = $.tmpl(odo.getResource(options.mode + 'SelectorTemplate_htm'), {})[0];
+    var dom = $($.render({}, odo.getResource(options.mode + 'SelectorTemplate_htm')))[0];
 
     // wire up the new elements
     var $expertText = $("[local-id='expertText']", dom).experttextbox({ source: viewModel.allItems, selection: viewModel.selectedItems, getSymbol: options.symbol });
@@ -331,7 +331,7 @@ odo.html.createListComposerDom = function (viewModel, options) {
 
     options = $.extend({}, createSelectorDomOptions, options || {});
 
-    var dom = $.tmpl(odo.getResource(options.mode + 'SelectorTemplate_htm'), {})[0];
+    var dom = $($.render({}, odo.getResource(options.mode + 'SelectorTemplate_htm')))[0];
 
     // mark the natural order of the existing selected items...
     var index = 0;

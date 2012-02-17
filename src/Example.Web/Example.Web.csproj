@@ -58,7 +58,6 @@
     <EmbeddedResource Include="odo-dependencies\knockout-1.1.1.debug.js" />
     <Content Include="odo-dependencies\jquery-1.5.1.js" />
     <Content Include="odo-dependencies\jquery-ui-1.8.10.custom.min.js" />
-    <Content Include="odo-dependencies\jquery.templates-beta1.debug.js" />
     <Content Include="Views\Components\RegionWithDomControl.aspx" />
     <Content Include="Views\Components\Selector.aspx" />
     <Content Include="Content\jquery-ui-1.8.7.custom.css" />

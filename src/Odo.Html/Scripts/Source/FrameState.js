@@ -64,7 +64,7 @@
         $element.data('odo.html.selectorControl', selectorControl);
 
         $element.css({ border: '1px solid blue', margin: '10px', padding: '10px', display: 'inline-block' });
-        var $items = $.tmpl('<div class="nimble_selector_item"><div class="select_content">' + template + '</div></div>', items);
+        var $items = $($.render(items, '<div class="nimble_selector_item"><div class="select_content">' + template + '</div></div>'));
         $items.appendTo($element);
 
         $element.click(function (e) {
